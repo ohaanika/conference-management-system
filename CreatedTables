@@ -65,6 +65,9 @@ CREATE TABLE CompanySponsors(
 
 --table for TimeSlot
 CREATE TABLE TimeSlot (
+	-- 2 options for resolving the issue of referencing 
+	1. Make an artificial key (timeslotID) the primary key, give the UNIQUE constraint to the current primary keys
+	2. leave these primary keys as is but whoever references timeslot will need to have 3 foreign keys which will be startTime, endTime and shiftDate)
 	startTime time, 
 	endTime time, 
 	shiftDate date,
