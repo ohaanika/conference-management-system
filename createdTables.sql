@@ -1,6 +1,6 @@
 --table for Attendee
 CREATE TABLE Attendee (
-	aID UUID NOT NULL,
+	aID UUID,
 	firstName VARCHAR(50) NOT NULL,
 	LastName VARCHAR(50) NOT NULL,
 	dietaryRestrictions VARCHAR (10),
@@ -11,7 +11,7 @@ CREATE TABLE Attendee (
 
 --table for Delegate
 CREATE TABLE Delegate (
-	aID UUID NOT NULL,
+	aID UUID,
 	university VARCHAR(100),
 	major VARCHAR(50),
 	province VARCHAR(20),
@@ -21,7 +21,7 @@ CREATE TABLE Delegate (
 
 --table for Organizer
 CREATE TABLE Organizer (
-	aID UUID NOT NULL,
+	aID UUID,
 	role VARCHAR(20),  
 	PRIMARY KEY (aID),
 	FOREIGN KEY (aID) REFERENCES Attendee(aID)
@@ -29,41 +29,28 @@ CREATE TABLE Organizer (
 
 --table for Speaker
 CREATE TABLE Speaker (
-	aID UUID NOT NULL,
+	aID UUID,
 	orgName VARCHAR(20),  
-	talkID UUID NOT NULL,
+	talkID UUID,
 	PRIMARY KEY (aID),
-	FOREIGN KEY (aID) REFERENCES Attendee(aID),
-	FOREIGN KEY (talkID) REFERENCES Talk(eID)
+	FOREIGN KEY (aID) REFERENCES Attendee(aID)
 );
 
 --table for Sponsor
 CREATE TABLE Sponsor (
-	aID UUID NOT NULL,  
+	aID UUID,  
 	companyID VARCHAR(50) NOT NULL,
-	PRIMARY KEY (aID, companyID),
+	PRIMARY KEY (aID),
 	FOREIGN KEY (aID) REFERENCES Attendee(aID),
 	FOREIGN KEY (companyID) REFERENCES Company(cname)
 );
 
 --table for Company
 CREATE TABLE Company (
-	cname VARCHAR(50) NOT NULL,
-	tier VARCHAR(20),  
-	workshopID UUID NOT NULL,
-	PRIMARY KEY (cname),
-	FOREIGN KEY (workshopID) REFERENCES Workshop(eID)
+	cname VARCHAR(50),
+	tier VARCHAR(20) NOT NULL,  
+	PRIMARY KEY (cname)
 );
-
---table for CompanySponsors
-/*
-CREATE TABLE CompanySponsors(
-	companyID VARCHAR(50) NOT NULL,
-	sponsorID UUID NOT NULL, 
-	FOREIGN KEY (companyID) REFERENCES Company(cname),
-	FOREIGN KEY (sponsorID) REFERENCES Sponsors(aID)
-);
-*/
 
 --table for TimeSlot
 CREATE TABLE TimeSlot (
@@ -75,48 +62,50 @@ CREATE TABLE TimeSlot (
 
 --table for Location
 CREATE TABLE Location(
-	timeSlotID VARCHAR(50) NOT NULL UNIQUE,
-	lname VARCHAR (20) NOT NULL,
-	capacity int,
+	lname VARCHAR (20),
+	capacity int NOT NULL,
 	PRIMARY KEY (lname)
 );
 
 --table for Events
 CREATE TABLE Event (
-	eID int NOT NULL, 
+	eID UUID, 
 	title VARCHAR (30),
-	timeSlotID VARCHAR(50),
-	locationID int,
+	startTime time,
+	endTime time,
+	slotDate date,
+	locationID VARCHAR (20),
 	PRIMARY KEY (eID),
-	FOREIGN KEY (timeSlotID) references TimeSlot(timeSlotID),
+	FOREIGN KEY (startTime, endTime, slotDate) references TimeSlot,
 	FOREIGN KEY (locationID) references Location(lname)
 );
 
 --table for LocationAtTimeSlot
 CREATE TABLE LocationAtTimeSlot (
-	locationID VARCHAR (20), 
-	timeSlotID VARCHAR(50),
+	locationID VARCHAR (20),
+	startTime time,
+	endTime time,
+	slotDate date,
 	FOREIGN KEY (locationID) references Location(lname),
-	FOREIGN KEY (timeSlotID) references TimeSlot(timeSlotID)
+	FOREIGN KEY (startTime, endTime, slotDate) references TimeSlot
 );
 
 --table for Interview
 --An interview is must be exactly between one delegate and a sponsor (participation constraint) 
 CREATE TABLE Interview (
-	eID int NOT NULL, 
-	delegateID UUID, 
-	sponsorID UUID, 
+	eID UUID, 
+	delegateID UUID NOT NULL,
+	sponsorID UUID NOT NULL,
 	PRIMARY KEY (eID),
-	FOREIGN KEY (eID) references Events(eID),
+	FOREIGN KEY (eID) references Event(eID),
 	FOREIGN KEY (delegateID) references Delegate(aID),
 	FOREIGN KEY (sponsorID) references Sponsor(aID)
 );
 
 --table for Workshop
 CREATE TABLE Workshop (
-	eID int NOT NULL, 
-	title VARCHAR(30), 
-	sponsorID UUID, 
+	eID UUID,
+	sponsorID UUID NOT NULL,
 	PRIMARY KEY (eID),
 	FOREIGN KEY (eID) references Event(eID),
 	FOREIGN KEY (sponsorID) references Sponsor(aID)
@@ -124,8 +113,7 @@ CREATE TABLE Workshop (
 
 --table for Talk
 CREATE TABLE Talk (
-	eID int NOT NULL, 
-	title VARCHAR (30), 
+	eID UUID,
 	speakerID UUID,
 	Primary Key (eID),
 	FOREIGN KEY (eID) references Event(eID),
@@ -134,8 +122,8 @@ CREATE TABLE Talk (
 
 --table for Task
 CREATE TABLE Task (
-	tID int NOT NULL, 
-	description VARCHAR(30), 
+	tID UUID,
+	description VARCHAR(30) NOT NULL, 
 	deadlineDate DATE,
 	deadlineTime TIME,
 	status BOOLEAN,
@@ -145,14 +133,14 @@ CREATE TABLE Task (
 --table for OrganizerTasks
 CREATE TABLE OrganizerTasks(
 	organizerID UUID, 
-	taskID int,
+	taskID UUID NOT NULL,
 	FOREIGN KEY (organizerID) references Organizer(aID),
 	FOREIGN KEY (taskID) references Task(tID)
 );
 
 --table for HotelBooking
 CREATE TABLE HotelBooking (
-	hID VARCHAR(100) NOT NULL, 
+	hID UUID,
 	roomNumber int, 
 	capacity int,
 	PRIMARY KEY (hID)
@@ -160,10 +148,10 @@ CREATE TABLE HotelBooking (
 
 --table for AttendeeHotelBookings
 CREATE TABLE AttendeeHotelBookings(
-	aID int,
-	roomNumber int, 
+	aID UUID,
+	hID UUID NOT NULL,
 	PRIMARY KEY (aID),
-	FOREIGN KEY (roomNumber) references HotelBooking(hID),
+	FOREIGN KEY (hID) references HotelBooking(hID),
 	FOREIGN KEY (aID) references Attendee(aID)
 );
 
