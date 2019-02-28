@@ -4,6 +4,7 @@ CREATE TABLE Attendee (
 	firstName VARCHAR(50) NOT NULL,
 	LastName VARCHAR(50) NOT NULL,
 	dietaryRestrictions VARCHAR (10),
+	emailAddress VARCHAR (50),
 	shirtCut VARCHAR(1),
 	shirtSize VARCHAR(3),
 	PRIMARY KEY (aID)
