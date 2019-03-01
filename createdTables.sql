@@ -31,9 +31,6 @@ CREATE TABLE Organizer (
 --table for Speaker
 CREATE TABLE Speaker (
 	aID UUID, 
-	-- why do we have talkID when we don't use it as a foreign key
-	-- there also already exists a foreign key from talk to speaker
-	talkID UUID,
 	PRIMARY KEY (aID),
 	FOREIGN KEY (aID) REFERENCES Attendee(aID)
 );
