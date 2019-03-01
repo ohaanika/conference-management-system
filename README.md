@@ -10,11 +10,11 @@ The absence of an efficient data management system greatly impacts the efficienc
 
 The requirements of the system are shaped to tackle the two main following issues:
 
-Scheduling different types of events in locations at specific times
+- Scheduling different types of events in locations at specific times
 CUSEC engages students in many different types of events requiring rooms.
 It is important to schedule these properly to avoid conflicts.
 
-Distributing workload for organizers of the event
+- Distributing workload for organizers of the event
 For efficiency, assigning work to organizers would minimize errors and foster collaboration. When planning events like these, a lot of small tasks may add up. Keeping track of these becomes a must.
 
 These are achieved through the storage of specific data, as described in the data requirements, and require certain operations to be executed, as described in the functional requirements of the analysis.
