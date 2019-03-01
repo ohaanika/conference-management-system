@@ -104,10 +104,10 @@ CREATE TABLE Interview (
 --table for Workshop
 CREATE TABLE Workshop (
 	eID UUID,
-	sponsorID UUID NOT NULL,
+	companyID UUID NOT NULL,
 	PRIMARY KEY (eID),
 	FOREIGN KEY (eID) references Event(eID),
-	FOREIGN KEY (sponsorID) references Sponsor(aID)
+	FOREIGN KEY (companyID) references Company(aID)
 );
 
 --table for Talk
