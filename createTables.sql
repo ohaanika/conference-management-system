@@ -62,6 +62,7 @@ CREATE TABLE Location (
 CREATE TABLE Event (
 	eID UUID, 
 	title VARCHAR(30),
+	size int NOT NULL,
 	startTime time,
 	endTime time,
 	slotDate date,
