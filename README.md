@@ -4,7 +4,7 @@
 
 The Canadian University Software Engineering Conference, henceforth referred to as CUSEC, aims to unite students from all over Canada to participate in workshops and talks in the field of software. The conference is also an opportunity for students to network with professionals in the field.
 
-The absence of an efficient data management system greatly impacts the efficiency of the logistics team in charge of organizing this event. It is key that the information is accessible to certain parties as soon as it is updated in one place. Witnessing this real-life issue is a main driver for the unique project choice.
+The absence of an efficient data management system can greatly impact the efficiency of the logistics team in charge of organizing this event. It is key that the information is accessible to certain parties as soon as it is updated in one place. Witnessing this real-life issue is a main driver for the unique project choice.
 
 ### Scope
 
