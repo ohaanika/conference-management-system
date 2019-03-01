@@ -1,14 +1,11 @@
 
-SELECT firstname,lastname,email
-FROM (Attendee 
-JOIN(SELECT aID FROM Delegate WHERE university="McGill")
-ON  Attendee.aID=Delegate.aID))
+--
+SELECT firstName, lastName, emailAddress
+FROM (Attendee JOIN (SELECT aID FROM Delegate WHERE university="McGill") ON Attendee.aID=Delegate.aID))
 
-
-SELECT firstname,lastname,email
-FROM (Attendee 
-JOIN(SELECT aID FROM (Sponsor) WHERE companyID="Kinaxis")
-ON  Attendee.aID=Sponsor.aID))
+--
+SELECT firstName, lastName, emailAddress
+FROM (Attendee JOIN (SELECT aID FROM (Sponsor) WHERE companyID="Kinaxis") ON Attendee.aID=Sponsor.aID))
 
 
 SELECT description,deadlineTime FROM Task WHERE (status="false"&&deadlineDate="2019-01-09")
