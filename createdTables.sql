@@ -3,10 +3,10 @@ CREATE TABLE Attendee (
 	aID UUID,
 	firstName VARCHAR(50) NOT NULL,
 	lastName VARCHAR(50) NOT NULL,
-	dietaryRestrictions VARCHAR (10),
-	emailAddress VARCHAR (50),
+	emailAddress VARCHAR(50),
 	shirtCut VARCHAR(1),
 	shirtSize VARCHAR(3),
+	dietaryRestrictions VARCHAR(10),
 	PRIMARY KEY (aID)
 );
 
@@ -63,14 +63,14 @@ CREATE TABLE TimeSlot (
 
 --table for Location
 CREATE TABLE Location (
-	lname VARCHAR (20),
+	lname VARCHAR(20),
 	capacity int NOT NULL,
 	PRIMARY KEY (lname)
 );
 
 --table for LocationAtTimeSlot
 CREATE TABLE LocationAtTimeSlot (
-	locationID VARCHAR (20),
+	locationID VARCHAR(20),
 	startTime time,
 	endTime time,
 	slotDate date,
@@ -81,11 +81,11 @@ CREATE TABLE LocationAtTimeSlot (
 --table for Events
 CREATE TABLE Event (
 	eID UUID, 
-	title VARCHAR (30),
+	title VARCHAR(30),
 	startTime time,
 	endTime time,
 	slotDate date,
-	locationID VARCHAR (20),
+	locationID VARCHAR(20),
 	PRIMARY KEY (eID),
 	FOREIGN KEY (startTime, endTime, slotDate) references TimeSlot,
 	FOREIGN KEY (locationID) references Location(lname)
