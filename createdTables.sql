@@ -132,7 +132,7 @@ CREATE TABLE Task (
 );
 
 --table for EventTasks
-CREATE TABLE EventTasks(
+CREATE TABLE EventTasks (
 	eventID UUID, 
 	taskID UUID NOT NULL,
 	FOREIGN KEY (eventID) references Event(aID),
@@ -140,7 +140,7 @@ CREATE TABLE EventTasks(
 );
 
 --table for OrganizerTasks
-CREATE TABLE OrganizerTasks(
+CREATE TABLE OrganizerTasks (
 	organizerID UUID, 
 	taskID UUID NOT NULL,
 	FOREIGN KEY (organizerID) references Organizer(aID),
@@ -156,7 +156,7 @@ CREATE TABLE HotelBooking (
 );
 
 --table for AttendeeHotelBookings
-CREATE TABLE AttendeeHotelBookings(
+CREATE TABLE AttendeeHotelBookings (
 	aID UUID,
 	hID UUID NOT NULL,
 	PRIMARY KEY (aID),
