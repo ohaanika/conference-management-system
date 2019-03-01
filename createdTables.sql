@@ -62,7 +62,7 @@ CREATE TABLE TimeSlot (
 );
 
 --table for Location
-CREATE TABLE Location(
+CREATE TABLE Location (
 	lname VARCHAR (20),
 	capacity int NOT NULL,
 	PRIMARY KEY (lname)
