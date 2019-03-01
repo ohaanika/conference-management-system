@@ -13,8 +13,8 @@ CREATE TABLE Attendee (
 --table for Delegate
 CREATE TABLE Delegate (
 	aID UUID,
-	university VARCHAR(100),
 	major VARCHAR(50),
+	university VARCHAR(100),
 	province VARCHAR(20),
 	PRIMARY KEY (aID),
 	FOREIGN KEY (aID) REFERENCES Attendee(aID)
@@ -30,8 +30,7 @@ CREATE TABLE Organizer (
 
 --table for Speaker
 CREATE TABLE Speaker (
-	aID UUID,
-	orgName VARCHAR(20),  
+	aID UUID,  
 	talkID UUID,
 	PRIMARY KEY (aID),
 	FOREIGN KEY (aID) REFERENCES Attendee(aID)
