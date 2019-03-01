@@ -51,29 +51,11 @@ CREATE TABLE Company (
 	PRIMARY KEY (cname)
 );
 
---table for TimeSlot
-CREATE TABLE TimeSlot (
-	startTime TIME, 
-	endTime TIME, 
-	slotDate DATE,
-	PRIMARY KEY (startTime, endTime, slotDate)
-);
-
 --table for Location
 CREATE TABLE Location (
 	lname VARCHAR(20),
 	capacity int NOT NULL,
 	PRIMARY KEY (lname)
-);
-
---table for LocationAtTimeSlot
-CREATE TABLE LocationAtTimeSlot (
-	locationID VARCHAR(20),
-	startTime time,
-	endTime time,
-	slotDate date,
-	FOREIGN KEY (locationID) references Location(lname),
-	FOREIGN KEY (startTime, endTime, slotDate) references TimeSlot
 );
 
 --table for Events
@@ -85,7 +67,6 @@ CREATE TABLE Event (
 	slotDate date,
 	locationID VARCHAR(20),
 	PRIMARY KEY (eID),
-	FOREIGN KEY (startTime, endTime, slotDate) references TimeSlot,
 	FOREIGN KEY (locationID) references Location(lname)
 );
 
