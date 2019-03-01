@@ -2,7 +2,7 @@
 CREATE TABLE Attendee (
 	aID UUID,
 	firstName VARCHAR(50) NOT NULL,
-	LastName VARCHAR(50) NOT NULL,
+	lastName VARCHAR(50) NOT NULL,
 	dietaryRestrictions VARCHAR (10),
 	emailAddress VARCHAR (50),
 	shirtCut VARCHAR(1),
@@ -68,6 +68,16 @@ CREATE TABLE Location(
 	PRIMARY KEY (lname)
 );
 
+--table for LocationAtTimeSlot
+CREATE TABLE LocationAtTimeSlot (
+	locationID VARCHAR (20),
+	startTime time,
+	endTime time,
+	slotDate date,
+	FOREIGN KEY (locationID) references Location(lname),
+	FOREIGN KEY (startTime, endTime, slotDate) references TimeSlot
+);
+
 --table for Events
 CREATE TABLE Event (
 	eID UUID, 
@@ -79,16 +89,6 @@ CREATE TABLE Event (
 	PRIMARY KEY (eID),
 	FOREIGN KEY (startTime, endTime, slotDate) references TimeSlot,
 	FOREIGN KEY (locationID) references Location(lname)
-);
-
---table for LocationAtTimeSlot
-CREATE TABLE LocationAtTimeSlot (
-	locationID VARCHAR (20),
-	startTime time,
-	endTime time,
-	slotDate date,
-	FOREIGN KEY (locationID) references Location(lname),
-	FOREIGN KEY (startTime, endTime, slotDate) references TimeSlot
 );
 
 --table for Interview
@@ -129,6 +129,14 @@ CREATE TABLE Task (
 	deadlineTime TIME,
 	status BOOLEAN,
 	PRIMARY KEY (tID)
+);
+
+--table for EventTasks
+CREATE TABLE EventTasks(
+	eventID UUID, 
+	taskID UUID NOT NULL,
+	FOREIGN KEY (eventID) references Event(aID),
+	FOREIGN KEY (taskID) references Task(tID)
 );
 
 --table for OrganizerTasks
