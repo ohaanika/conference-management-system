@@ -157,7 +157,6 @@ CREATE TABLE HotelBooking (
 CREATE TABLE AttendeeHotelBookings (
 	aID UUID,
 	hID UUID NOT NULL,
-	PRIMARY KEY (aID),
 	FOREIGN KEY (hID) references HotelBooking(hID),
 	FOREIGN KEY (aID) references Attendee(aID)
 );
