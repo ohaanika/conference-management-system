@@ -7,7 +7,7 @@ CREATE TABLE Attendee
 	emailAddress VARCHAR(50),
 	shirtCut VARCHAR(1),
 	shirtSize VARCHAR(3),
-	dietaryRestrictions VARCHAR(10),
+	dietaryRestrictions VARCHAR(50),
 	PRIMARY KEY (aID)
 );
 
@@ -39,6 +39,14 @@ CREATE TABLE Speaker
 	FOREIGN KEY (aID) REFERENCES Attendee(aID)
 );
 
+--table for Company
+CREATE TABLE Company
+(
+	cname VARCHAR(50),
+	tier VARCHAR(20) NOT NULL,
+	PRIMARY KEY (cname)
+);
+
 --table for Sponsor
 CREATE TABLE Sponsor
 (
@@ -49,13 +57,6 @@ CREATE TABLE Sponsor
 	FOREIGN KEY (companyID) REFERENCES Company(cname)
 );
 
---table for Company
-CREATE TABLE Company
-(
-	cname VARCHAR(50),
-	tier VARCHAR(20) NOT NULL,
-	PRIMARY KEY (cname)
-);
 
 --table for Location
 CREATE TABLE Location
@@ -96,10 +97,10 @@ CREATE TABLE Interview
 CREATE TABLE Workshop
 (
 	eID UUID,
-	companyID UUID NOT NULL,
+	companyID VARCHAR(50) NOT NULL,
 	PRIMARY KEY (eID),
 	FOREIGN KEY (eID) references Event(eID),
-	FOREIGN KEY (companyID) references Company(aID)
+	FOREIGN KEY (companyID) references Company(cname)
 );
 
 --table for Talk
@@ -116,7 +117,7 @@ CREATE TABLE Talk
 CREATE TABLE Task
 (
 	tID UUID,
-	description VARCHAR(30) NOT NULL,
+	description VARCHAR(150) NOT NULL,
 	deadlineDate DATE,
 	deadlineTime TIME,
 	complete BOOLEAN,
@@ -128,7 +129,7 @@ CREATE TABLE EventTasks
 (
 	eventID UUID,
 	taskID UUID NOT NULL,
-	FOREIGN KEY (eventID) references Event(aID),
+	FOREIGN KEY (eventID) references Event(eID),
 	FOREIGN KEY (taskID) references Task(tID)
 );
 
@@ -158,5 +159,3 @@ CREATE TABLE AttendeeHotelBookings
 	FOREIGN KEY (hID) references HotelBooking(hID),
 	FOREIGN KEY (aID) references Attendee(aID)
 );
-
-
