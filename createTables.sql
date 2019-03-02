@@ -26,7 +26,7 @@ CREATE TABLE Delegate
 CREATE TABLE Organizer
 (
 	aID UUID,
-	role VARCHAR(20),
+	role VARCHAR(100),
 	PRIMARY KEY (aID),
 	FOREIGN KEY (aID) REFERENCES Attendee(aID)
 );

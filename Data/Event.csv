@@ -1,58 +1,58 @@
-5d396a2b-77ac-415b-8ea1-cf42c4ee3f92,Registration,150,2019-01-10,8:00,9:00,Lower Lobby
-84438fc7-736f-4deb-9f40-4a2cae69d04b,Breakfast,150,2019-01-10,8:00,9:30,Lower Lobby
-a5f8927c-bfa2-4561-8672-d262788aab39,Breakfast,150,2019-01-10,8:30,9:30,Lower Lobby
-a66c6e05-930f-4134-ac2b-93ea8337986f,Opening Remarks,400,2019-01-10,9:30,10:00,Salle de Bal
-33e655dc-7119-42bb-96e1-691c2c131c11,Lunch Break,90,2019-01-10,12:00,13:30,Maissoneuve D
-b093748b-b96f-4129-820a-ee8746c6f688,Resume Review,400,2019-01-10,12:15,13:00,Salle de Bal
-3eaaf664-6a29-4fa2-9ecd-e5dc2332ce31,Career Fair,350,2019-01-10,14:00,15:30,Viger
-7d8adf76-b961-4d18-bc46-5181ab5daa61,Democamp,400,2019-01-10,15:30,16:30,Salle de Bal
-1ef37317-7827-4a25-bfc3-9923821ac5dc,Movie Night,100,2019-01-10,20:00,22:30,Caf' Conc
-564cb478-6bb9-44bd-b753-873cccbd8282,Lunch Break,90,2019-01-11,12:00,13:30,Maissoneuve D
-bb5242e0-6ac4-4638-a73f-d5bea4f56b78,Diversity Discussion,400,2019-01-11,12:15,13:00,Salle de Bal
-671ff858-5c0c-47bc-a7be-79d3de992c88,Career Fair,350,2019-01-11,13:00,15:00,Viger
-ad955c27-b7a2-46be-abb3-fd11314cf8a2,Lightning Talks,400,2019-01-11,15:15,16:00,Salle de Bal
-7e0bad21-0ff3-4591-b0da-3dd1b072e89b,Games Nights,350,2019-01-11,20:00,23:45,Viger
-7be05193-27ba-442d-b48a-36a67dfdbc42,Breakfast,150,2019-01-12,8:30,9:30,Lower Lobby
-f873ce83-69d4-4fb5-876d-06f6c4e9727b,Lunch Break,90,2019-01-12,12:00,13:30,Maissoneuve D
-4d58bd34-7f96-421a-a6ed-3a28364c2c27,Volunteer Info Session,400,2019-01-12,12:15,12:45,Salle de Bal
-cf231302-f931-48c3-9425-0930c965bfba,Career Fair,350,2019-01-12,13:15,16:15,Viger
-9946ac59-67c5-4b20-b22c-89cbf99cb614,Closing Ceremony,400,2019-01-12,17:45,18:15,Salle de Bal
-6f86de8f-f02f-45b4-8a60-412e5540051c,The Software Engineer’s (B) Tree of Life,400,2019-01-10,10:00,10:45,Salle de Bal
-db86b3f2-9412-40b9-a208-54533c4c99fc,Technology and AD,400,2019-01-10,10:45,11:15,Salle de Bal
-335537b1-f2be-4e96-b37e-f06b50919a60,Serverless - Applications Running in Their Natural State,400,2019-01-10,11:15,11:45,Salle de Bal
-16965457-a06a-49c8-861b-0e35300efe59,Humanizing Security,400,2019-01-10,16:30,17:15,Salle de Bal
-688034ed-277d-4555-be2a-83b1e5df7e77,A Brief History of AR Filters,400,2019-01-10,17:15,17:45,Salle de Bal
-24bad379-0966-435f-a650-fa669789f7e8,Breaking the programming community silos for the greater good,400,2019-01-10,17:45,18:15,Salle de Bal
-5d8683db-6054-4db4-ada7-658fd2e494a1,Supporting and Utilizing Software Traceability,400,2019-01-11,9:45,10:15,Salle de Bal
-acbc9657-3ff6-4341-b3d6-f28d90898e82,Performance Optimization in Large Systems,400,2019-01-11,10:15,10:45,Salle de Bal
-62bf5d6f-3f6a-41cf-a9ef-96faa47c0857,The Unintentional Innovation,400,2019-01-11,10:45,11:30,Salle de Bal
-95716b68-cae1-4e48-be61-e8d51f901b7f,The Possibility of Surprise,400,2019-01-11,16:30,17:15,Salle de Bal
-10c0c802-4087-4fbf-955a-0ee6f9ca4582,Mozilla's Internet of Things (IoT) Framework Puts You in Control,400,2019-01-11,17:15,17:45,Salle de Bal
-26f77d73-0fc6-4dae-893e-8aac46bdc857,Cybersecurity from the Trenches,400,2019-01-11,17:45,18:15,Salle de Bal
-4291b616-b896-4502-8c0d-97cbd6d93651,Towards neuromorphic hardware,400,2019-01-12,9:45,10:15,Salle de Bal
-9d3c6351-36c6-4e78-992d-7a105f6574fb,Lessons from tech history,400,2019-01-12,10:15,10:45,Salle de Bal
-502913f9-6c72-4054-aa20-e64d7a6534a6,Why Soft Skills Matter,400,2019-01-12,10:45,11:30,Salle de Bal
-635f9602-ea8a-44d2-bd94-eda24b229138,The secret life of working in your pj's,400,2019-01-12,16:30,17:00,Salle de Bal
-85c03929-d580-4c5d-9455-c8fe174fbd78,Freedom: 2019 Edition,400,2019-01-12,17:00,17:45,Salle de Bal
-0fc8719c-1263-43eb-bda6-3ef58bc2230f,Flying Python,150,2019-01-10,15:30,16:30,Caf' Conc
-bbb51f51-e220-40f3-b265-0980b26b0c8e,RBC Workshop,150,2019-01-11,11:30,12:30,Caf' Conc
-5b228835-31e9-4fc7-ab20-4e867c02d741,Hack your Python,150,2019-01-11,14:30,15:30,Caf' Conc
-424104cf-0484-4499-8b59-0640ec05aa8c,Designing Software that Runs in 2 Billion Devices,150,2019-01-11,15:30,16:30,Caf' Conc
-4a79744b-be28-44a9-a269-ca7367328003,Introduction to Git,150,2019-01-12,11:30,12:30,Caf' Conc
-38ebd643-cffb-45ca-b394-792ae86cca13,Introduction to Ruby,150,2019-01-12,14:30,15:30,Caf' Conc
-9945f20d-cb9f-449c-a210-358e5346a7e4,IBM Workshop,150,2019-01-12,15:30,16:30,Caf' Conc
-4eb7f818-1f9c-4ead-8219-507016287a95,,5,2019-01-10,9:00,9:30,
-0ee7fb56-9420-4388-a36b-15990cda3f81,,5,2019-01-11,9:00,9:30,
-834f5137-6e71-4a42-b0db-26b9a26e74b8,,5,2019-01-12,9:00,9:30,
-8b57a2ef-abdc-48a0-933c-2c515c7d3fe9,,5,2019-01-10,9:30,10:00,
-61960065-a26d-4789-8e27-c5d42eca3921,,5,2019-01-11,9:30,10:00,
-6de14e40-20d2-4b67-8e01-75dbe4de142e,,5,2019-01-12,9:30,10:00,
-09f8a926-de0a-4a73-898b-a41a2b19e308,,5,2019-01-10,10:00,10:30,
-9b0fa062-1ae2-43fd-ada7-27bc244ec0cd,,5,2019-01-11,10:00,10:30,
-be6bfff1-bcaf-49b3-9e40-bbcaa0b13f42,,5,2019-01-12,10:00,10:30,
-05bceb83-8169-4f16-9ebd-f34bfa42535e,,5,2019-01-11,10:30,11:00,
-e42e3713-b293-4395-9e9c-ef614e2909de,,5,2019-01-12,10:30,11:00,
-c7d22eb4-3c65-46d7-ac31-7428cda5c0d6,,5,2019-01-10,11:00,11:30,
-79fa256d-da92-4954-915e-985719e644e5,,5,2019-01-11,11:00,11:30,
-b76a2277-b7fb-4bd5-8979-d83c68b67586,,5,2019-01-11,18:30,19:00,
-f36bffde-6c96-4a6e-b248-333b9ecbbc5f,,5,2019-01-12,18:30,19:00,
+5d396a2b-77ac-415b-8ea1-cf42c4ee3f92,Registration,150,8:00:00,9:00:00,2019-01-10,Lower Lobby
+84438fc7-736f-4deb-9f40-4a2cae69d04b,Breakfast,150,8:00:00,9:30:00,2019-01-10,Lower Lobby
+a5f8927c-bfa2-4561-8672-d262788aab39,Breakfast,150,8:30:00,9:30:00,2019-01-10,Lower Lobby
+a66c6e05-930f-4134-ac2b-93ea8337986f,Opening Remarks,400,9:30:00,10:00:00,2019-01-10,Salle de Bal
+33e655dc-7119-42bb-96e1-691c2c131c11,Lunch Break,90,12:00:00,13:30:00,2019-01-10,Maissoneuve D
+b093748b-b96f-4129-820a-ee8746c6f688,Resume Review,400,12:15:00,13:00:00,2019-01-10,Salle de Bal
+3eaaf664-6a29-4fa2-9ecd-e5dc2332ce31,Career Fair,350,14:00:00,15:30:00,2019-01-10,Viger
+7d8adf76-b961-4d18-bc46-5181ab5daa61,Democamp,400,15:30:00,16:30:00,2019-01-10,Salle de Bal
+1ef37317-7827-4a25-bfc3-9923821ac5dc,Movie Night,100,20:00:00,22:30:00,2019-01-10,Caf' Conc
+564cb478-6bb9-44bd-b753-873cccbd8282,Lunch Break,90,12:00:00,13:30:00,2019-01-11,Maissoneuve D
+bb5242e0-6ac4-4638-a73f-d5bea4f56b78,Diversity Discussion,400,12:15:00,13:00:00,2019-01-11,Salle de Bal
+671ff858-5c0c-47bc-a7be-79d3de992c88,Career Fair,350,13:00:00,15:00:00,2019-01-11,Viger
+ad955c27-b7a2-46be-abb3-fd11314cf8a2,Lightning Talks,400,15:15:00,16:00:00,2019-01-11,Salle de Bal
+7e0bad21-0ff3-4591-b0da-3dd1b072e89b,Games Nights,350,20:00:00,23:45:00,2019-01-11,Viger
+7be05193-27ba-442d-b48a-36a67dfdbc42,Breakfast,150,8:30:00,9:30:00,2019-01-12,Lower Lobby
+f873ce83-69d4-4fb5-876d-06f6c4e9727b,Lunch Break,90,12:00:00,13:30:00,2019-01-12,Maissoneuve D
+4d58bd34-7f96-421a-a6ed-3a28364c2c27,Volunteer Info Session,400,12:15:00,12:45:00,2019-01-12,Salle de Bal
+cf231302-f931-48c3-9425-0930c965bfba,Career Fair,350,13:15:00,16:15:00,2019-01-12,Viger
+9946ac59-67c5-4b20-b22c-89cbf99cb614,Closing Ceremony,400,17:45:00,18:15:00,2019-01-12,Salle de Bal
+6f86de8f-f02f-45b4-8a60-412e5540051c, Software Engineer,400,10:00:00,10:45:00,2019-01-10,Salle de Bal
+db86b3f2-9412-40b9-a208-54533c4c99fc,Technology and AD,400,10:45:00,11:15:00,2019-01-10,Salle de Bal
+335537b1-f2be-4e96-b37e-f06b50919a60,Serverless Applications,400,11:15:00,11:45:00,2019-01-10,Salle de Bal
+16965457-a06a-49c8-861b-0e35300efe59,Humanizing Security,400,16:30:00,17:15:00,2019-01-10,Salle de Bal
+688034ed-277d-4555-be2a-83b1e5df7e77,A Brief History of AR Filters,400,17:15:00,17:45:00,2019-01-10,Salle de Bal
+24bad379-0966-435f-a650-fa669789f7e8,Breaking  programming,400,17:45:00,18:15:00,2019-01-10,Salle de Bal
+5d8683db-6054-4db4-ada7-658fd2e494a1,Software Traceability,400,9:45:00,10:15:00,2019-01-11,Salle de Bal
+acbc9657-3ff6-4341-b3d6-f28d90898e82,Optimization,400,10:15:00,10:45:00,2019-01-11,Salle de Bal
+62bf5d6f-3f6a-41cf-a9ef-96faa47c0857,Innovation,400,10:45:00,11:30:00,2019-01-11,Salle de Bal
+95716b68-cae1-4e48-be61-e8d51f901b7f,Possibility Surprise,400,16:30:00,17:15:00,2019-01-11,Salle de Bal
+10c0c802-4087-4fbf-955a-0ee6f9ca4582,Mozilla's IOT,400,17:15:00,17:45:00,2019-01-11,Salle de Bal
+26f77d73-0fc6-4dae-893e-8aac46bdc857,Cybersecurity Trenches,400,17:45:00,18:15:00,2019-01-11,Salle de Bal
+4291b616-b896-4502-8c0d-97cbd6d93651,neuromorphic hardware,400,9:45:00,10:15:00,2019-01-12,Salle de Bal
+9d3c6351-36c6-4e78-992d-7a105f6574fb,Lessons from tech history,400,10:15:00,10:45:00,2019-01-12,Salle de Bal
+502913f9-6c72-4054-aa20-e64d7a6534a6,Why Soft Skills Matter,400,10:45:00,11:30:00,2019-01-12,Salle de Bal
+635f9602-ea8a-44d2-bd94-eda24b229138,working in your pj's,400,16:30:00,17:00:00,2019-01-12,Salle de Bal
+85c03929-d580-4c5d-9455-c8fe174fbd78,Freedom: 2019 Edition,400,17:00:00,17:45:00,2019-01-12,Salle de Bal
+0fc8719c-1263-43eb-bda6-3ef58bc2230f,Flying Python,150,15:30:00,16:30:00,2019-01-10,Caf' Conc
+bbb51f51-e220-40f3-b265-0980b26b0c8e,RBC Workshop,150,11:30:00,12:30:00,2019-01-11,Caf' Conc
+5b228835-31e9-4fc7-ab20-4e867c02d741,Hack your Python,150,14:30:00,15:30:00,2019-01-11,Caf' Conc
+424104cf-0484-4499-8b59-0640ec05aa8c,2 Billion Devices,150,15:30:00,16:30:00,2019-01-11,Caf' Conc
+4a79744b-be28-44a9-a269-ca7367328003,Introduction to Git,150,11:30:00,12:30:00,2019-01-12,Caf' Conc
+38ebd643-cffb-45ca-b394-792ae86cca13,Introduction to Ruby,150,14:30:00,15:30:00,2019-01-12,Caf' Conc
+9945f20d-cb9f-449c-a210-358e5346a7e4,IBM Workshop,150,15:30:00,16:30:00,2019-01-12,Caf' Conc
+4eb7f818-1f9c-4ead-8219-507016287a95,,5,9:00:00,9:30:00,2019-01-10,
+0ee7fb56-9420-4388-a36b-15990cda3f81,,5,9:00:00,9:30:00,2019-01-11,
+834f5137-6e71-4a42-b0db-26b9a26e74b8,,5,9:00:00,9:30:00,2019-01-12,
+8b57a2ef-abdc-48a0-933c-2c515c7d3fe9,,5,9:30:00,10:00:00,2019-01-10,
+61960065-a26d-4789-8e27-c5d42eca3921,,5,9:30:00,10:00:00,2019-01-11,
+6de14e40-20d2-4b67-8e01-75dbe4de142e,,5,9:30:00,10:00:00,2019-01-12,
+09f8a926-de0a-4a73-898b-a41a2b19e308,,5,10:00:00,10:30:00,2019-01-10,
+9b0fa062-1ae2-43fd-ada7-27bc244ec0cd,,5,10:00:00,10:30:00,2019-01-11,
+be6bfff1-bcaf-49b3-9e40-bbcaa0b13f42,,5,10:00:00,10:30:00,2019-01-12,
+05bceb83-8169-4f16-9ebd-f34bfa42535e,,5,10:30:00,11:00:00,2019-01-11,
+e42e3713-b293-4395-9e9c-ef614e2909de,,5,10:30:00,11:00:00,2019-01-12,
+c7d22eb4-3c65-46d7-ac31-7428cda5c0d6,,5,11:00:00,11:30:00,2019-01-10,
+79fa256d-da92-4954-915e-985719e644e5,,5,11:00:00,11:30:00,2019-01-11,
+b76a2277-b7fb-4bd5-8979-d83c68b67586,,5,18:30:00,19:00:00,2019-01-11,
+f36bffde-6c96-4a6e-b248-333b9ecbbc5f,,5,18:30:00,19:00:00,2019-01-12,
