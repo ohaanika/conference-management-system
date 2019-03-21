@@ -22,5 +22,6 @@ class ConnectionManager {
         Connection con = DriverManager.getConnection(url, "cs421g14", "AaReRaAs14");
         return con;
     }
+
 }
 
