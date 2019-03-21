@@ -36,7 +36,7 @@ END;
 
 EXEC SQL CALL FREE_LOCATIONS (2019-01-01, 08:00, 09:00);
 
--- Q1: Stored Procedure 1.3
+-- Q1: Stored Procedure 1.3 [working version]
 
 CREATE FUNCTION FREE_LOCATIONS (some_date DATE, start_time TIME, end_time TIME)
 	RETURNS void AS $$
@@ -48,7 +48,7 @@ DECLARE
 	event_row RECORD;
 BEGIN 
 	OPEN C1;
-	CREATE TABLE freelocations (lname VARCHAR(20), capacity INT);
+	CREATE TABLE freelocations (lname VARCHAR(20), capacity INT, avail_sT TIME, avail_eT TIME);
 	LOOP
 		FETCH C1 INTO event_row;
 		EXIT WHEN NOT FOUND;
@@ -56,6 +56,7 @@ BEGIN
 			IF (event_row.startT < start_time AND event_row.endT < start_time)
 			OR (event_row.startT > end_time AND event_row.endT > end_time) THEN
 			INSERT INTO freelocations VALUES (event_row.room, event_row.cap);
+			END IF;
 		END IF;
 	END LOOP;
 	CLOSE C1;	
@@ -63,4 +64,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-SELECT FREE_LOCATIONS ('2019-01-01', '08:00:00', '09:00:00');
+SELECT FREE_LOCATIONS ('2019-01-11', '13:00:00', '21:00:00');
+Select lname, capacity FROM freelocations GROUP BY lname, capacity ORDER BY lname
+DROP TABLE freelocations
+
