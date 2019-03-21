@@ -1,4 +1,8 @@
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.UUID;
 
 public class EventManagementService {
 
@@ -6,27 +10,46 @@ public class EventManagementService {
      * Creates an event of specific type.
      * Initializes the properties, generates the ID, but no location or start time, end time or date is assigned just yet.
      *
-     * @param title the title of the event
-     * @param type the type of event
-     * @param delegateId the delegate being interviewed, null otherwise
-     * @param sponsorId the sponsor interviewing an attendee, null otherwise
+     * @param title the title of the event.
+     * @return the UUID of the newly created event.
      */
-    public void createEvent(String title, String type, String delegateId, String sponsorId) {
+    public UUID createEvent(String title) {
+        UUID eventId = UUID.randomUUID();
+
+        Connection connection = ConnectionManager.getConnectionInstance();
+        PreparedStatement basicEvent = null;
+        // The SQL for an event with a title.
+        String createEventSQL = "INSERT INTO Event(eventid,title) VALUES(" + eventId.toString() +","+title +")";
 
         // An entry in the table is created for any event of any type due to ISA relationship.
-        Connection connection = ConnectionManager.getConnectionInstance();
+        try {
+            basicEvent = connection.prepareStatement(createEventSQL);
+            ResultSet result = basicEvent.executeQuery();
 
-        connection.createStatement("blablaba sql goes here")
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         ConnectionManager.closeConnection();
 
-        // createWorkshop(title) if type is Workshop
+        return eventId;
+    }
 
-        // createTalk(title) if type is Talk
+    public void createInterview(String title, String delegateId, String sponsorId) {
+        createEvent(title);
 
-        // createInterview(String title, String type)
+    }
+
+    public void createTalk(String title, String speakerId) {
+        createEvent(title);
+    }
+
+    public void createWorkshop(String title, String speakerId) {
+        createEvent(title);
     }
 
     public void scheduleEvent() {
         Connection connection = ConnectionManager.getConnectionInstance();
     }
+
 }

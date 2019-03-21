@@ -28,6 +28,8 @@ public class Client {
 
             // Obtain user input.
             int option = sc.nextInt();
+            sc.nextLine();
+
             if (option == 6) {
                 break;
             }
@@ -51,21 +53,23 @@ public class Client {
             System.out.println("What is the type of your event, enter one of: Interview, Workshop, Talk or General");
             String type = sc.nextLine();
 
-            System.out.println("Please enter the title of your event. ");
+            System.out.println("Please enter a title of your event. ");
             String title = sc.nextLine();
 
-            // If it is an interview:
-            if(type.toLowerCase().equals("interview")){
-                // Obtain the delegateId and sponsorId
-                System.out.println("Please enter the deleateId of interviewee. ");
-                System.out.println("Please enter the sponsorId of interviewer. ");
-                eventManagementService.createEvent(title,type,"","");
-            } else {
-                eventManagementService.createEvent(title,type,null,null);
-            }
-
-            // TODO: Need to catch exception and ensure that the console outputs it.
+//            // If it is an interview:
+//            if(type.toLowerCase().equals("interview")){
+//                // TODO: Get the names.
+//                // Obtain the delegateId and sponsorId
+//                System.out.println("Please enter the deleateId of interviewee. ");
+//                System.out.println("Please enter the sponsorId of interviewer. ");
+//                eventManagementService.createInterview(title,"","");
+//            } else if (type.toLowerCase().equals("talk")) {
+//                eventManagementService.createTalk(title,"");
+//            } else {
+//                eventManagementService.createEvent(title);
+//            }
             eventManagementService.scheduleEvent();
+            // TODO: Need to catch exception and ensure that the console outputs it.
 
         } else if (option == 4) {
 
