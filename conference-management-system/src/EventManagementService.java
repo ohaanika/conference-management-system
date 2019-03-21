@@ -15,6 +15,7 @@ public class EventManagementService {
 
         // An entry in the table is created for any event of any type due to ISA relationship.
         Connection connection = ConnectionManager.getConnectionInstance();
+
         connection.createStatement("blablaba sql goes here")
         ConnectionManager.closeConnection();
 
