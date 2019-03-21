@@ -13,9 +13,9 @@ public class EventManagementService {
         // An entry in the table is created for any event of any type due to ISA relationship.
         ConnectionManager.connect();
 
-        // createWorkshop(title) if type is workshop
+        // createWorkshop(title) if type is Workshop
 
-        // createTalk(title) if type is createTalk
+        // createTalk(title) if type is Talk
 
         // createInterview(String title, String type)
     }
