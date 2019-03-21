@@ -1,6 +1,7 @@
 /**
  * Class to connect to database.
  * TODO: Could simplify to not recreate the ConnectionManager everytime.
+ * TODO: Handle the SQL issues.
  */
 
 import java.sql.DriverManager;
