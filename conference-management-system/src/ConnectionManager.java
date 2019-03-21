@@ -29,7 +29,7 @@ class ConnectionManager {
 
         // Connect to database
         try {
-            this.con = DriverManager.getConnection(url, "cs421g14", "AaReRaAs14");
+            con = DriverManager.getConnection(url, "cs421g14", "AaReRaAs14");
         } catch (SQLException e) {
             e.printStackTrace();
         }
