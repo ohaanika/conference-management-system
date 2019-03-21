@@ -12,9 +12,9 @@ public class EventManagementService {
     public void createEvent(String title, String type, String delegateId, String sponsorId) {
         // An entry in the table is created for any event of any type due to ISA relationship.
 
-        // createWorkshop(title) if type is workshop
+        // createWorkshop(title) if type is Workshop
 
-        // createTalk(title) if type is createTalk
+        // createTalk(title) if type is Talk
 
         // createInterview(String title, String type)
     }
