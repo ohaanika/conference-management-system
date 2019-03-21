@@ -64,17 +64,6 @@ public class Client {
                 eventManagementService.createEvent(title,type,null,null);
             }
 
-            /**
-             * createEvent(title),
-             * createInterview(title,delegateID,sponsorID),
-             * createWorkshop(title),
-             * createTalk(title)
-             *
-             * Creates an event of that type.
-             * Initializes the properties, generates the ID but no location or start time, end time or date is assigned just yet.
-             *
-             * scheduleEvent(eventID,startTime,EndTime,eventDate,locationID)
-             */
             // TODO: Need to catch exception and ensure that the console outputs it.
             eventManagementService.scheduleEvent();
 

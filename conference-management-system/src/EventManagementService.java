@@ -11,6 +11,7 @@ public class EventManagementService {
      */
     public void createEvent(String title, String type, String delegateId, String sponsorId) {
         // An entry in the table is created for any event of any type due to ISA relationship.
+        ConnectionManager.connect();
 
         // createWorkshop(title) if type is workshop
 
