@@ -1,3 +1,5 @@
+import java.sql.Connection;
+
 public class EventManagementService {
 
     /**
@@ -10,8 +12,11 @@ public class EventManagementService {
      * @param sponsorId a sponsor which is interviewing an attendee, null otherwise
      */
     public void createEvent(String title, String type, String delegateId, String sponsorId) {
+
         // An entry in the table is created for any event of any type due to ISA relationship.
-        ConnectionManager.connect();
+        Connection connection = ConnectionManager.getConnectionInstance();
+        connection.createStatement("blablaba sql goes here")
+        ConnectionManager.closeConnection();
 
         // createWorkshop(title) if type is Workshop
 
@@ -21,5 +26,6 @@ public class EventManagementService {
     }
 
     public void scheduleEvent() {
+        Connection connection = ConnectionManager.getConnectionInstance();
     }
 }
