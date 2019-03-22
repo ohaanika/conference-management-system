@@ -16,7 +16,7 @@ public class TaskManagementService {
 	        Connection connection = ConnectionManager.getConnectionInstance();
 	        PreparedStatement basicTask = null;
 	        // The SQL for an event with a title.
-	        String createEventSQL = "INSERT INTO Task(tid,description,deadlinedate,deadlinetime) VALUES('" +taskId.toString() + "','" + description + "'," + deadlineDate  + "'," + deadlineTime + ");";
+	        String createEventSQL = "INSERT INTO Task(tid,description,deadlinedate,deadlinetime) VALUES('" +taskId.toString() + "','" + description + "','" + deadlineDate  + "','" + deadlineTime + "');";
 
 	        // An entry in the table is created for any event of any type due to ISA relationship.
 	        try {
@@ -36,16 +36,16 @@ public class TaskManagementService {
 	        return taskId;
 	    }
 	
-	  public void GiveTaskToOrganizer(String OrganizerFirstName, String OrganizerLastName, UUID takskID) {
+	  public void GiveTaskToOrganizer(UUID oID,UUID tID) {
 	        Connection connection = ConnectionManager.getConnectionInstance();
 	       
 	        PreparedStatement basicGiving = null;
-	        String createEventSQL = "UPDATE EVENT SET " + "startTime='" + startTime.toString() + "',endTime='" + endTime.toString() + "',locationid='" + location.getLocationId() + "' WHERE eid='" + eventId.toString() + "';";
+	        String createEventSQL = "INSERT INTO OrganizerTasks(organizerid,taskid) VALUES('" +oID.toString() + "','" + tID.toString()  + "');";
 
 	        // An entry in the table is created for any event of any type due to ISA relationship.
 	        try {
-	            basicEvent = connection.prepareStatement(createEventSQL);
-	            basicEvent.execute();
+	            basicGiving = connection.prepareStatement(createEventSQL);
+	            basicGiving.execute();
 
 	        } catch (SQLException e) {
 	            e.printStackTrace();

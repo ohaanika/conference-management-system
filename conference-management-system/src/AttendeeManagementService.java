@@ -57,7 +57,7 @@ public class AttendeeManagementService {
 	           while ( rs.next()) {
 	        	  UUID  aid= UUID.fromString(rs.getString("aid"));
 	  
-	        	  String email= rs.getString("email");
+	        	  String email= rs.getString("emailaddress");
 	        	  Attendee attendee= new Attendee();
 	        	  attendee.setEmail(email);
 	        	  attendee.setFn(FirstName);

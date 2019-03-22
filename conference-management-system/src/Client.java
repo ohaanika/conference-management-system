@@ -1,8 +1,10 @@
+import Model.Attendee;
 import Model.Location;
 
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -28,7 +30,7 @@ public class Client {
             System.out.println("1: Create attendee.");
             System.out.println("2: Perform hotel room assignments.");
             System.out.println("3: Create an event and schedule it.");
-            System.out.println("4:Task operation: Create task/assign task to event/assign event to organizer ");
+            System.out.println("4:Task operation: Create task/assign task to organizer ");
             System.out.println("5: Generate the entire conference schedule. ");
             System.out.println("6: quit program");
 
@@ -64,6 +66,7 @@ public class Client {
     }
     private static void taskOption (Scanner sc) {
     	TaskManagementService tskman= new TaskManagementService();
+    	AttendeeManagementService atman= new AttendeeManagementService();
     	 System.out.println("Please enter the task description");
     	 String taskDescription = sc.nextLine();
     	 System.out.println("Please enter the task deadlinedate");
@@ -99,7 +102,7 @@ public class Client {
     	 
     	 taskid=tskman.createTask(taskDescription,taskDeadlineDate,taskDeadlineTime);
     	 
-    	 System.out.println("Would you like to schedule the created event (yes/no)?");
+    	 System.out.println("Task created Successfully!Would you like to give it to an organizer (yes/no)?");
          String choice = sc.nextLine();
          if (choice.toLowerCase().equals("yes")) {
         	 System.out.println("Organizer Firstname?");
@@ -107,7 +110,19 @@ public class Client {
              System.out.println("Organizer Lastname?");
              String ln = sc.nextLine();
              System.out.println("please enter your organizer's index from the following list:");
-             list=
+             List<Attendee>attendees= atman.getAttendeeIDsFromName(fn, ln);
+             int i =0;
+             for(Attendee attendee:attendees) {
+                 System.out.println(i+": "+attendee.getEmail()+" , "+attendee.getId()); 
+            	 
+             }
+             int indx = sc.nextInt();
+             Attendee chosenOne= attendees.get(indx);
+             tskman.GiveTaskToOrganizer(chosenOne.getId(), taskid);
+             System.out.println("assigned Successfully!"); 
+             
+             
+             
              
         	 
          }
