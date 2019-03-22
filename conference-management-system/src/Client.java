@@ -1,5 +1,6 @@
 import Model.Location;
 
+import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -27,7 +28,7 @@ public class Client {
             System.out.println("1: Create attendee.");
             System.out.println("2: Perform hotel room assignments.");
             System.out.println("3: Create an event and schedule it.");
-            System.out.println("4: ");
+            System.out.println("4:Task operation: Create task/assign task to event/assign event to organizer ");
             System.out.println("5: Generate the entire conference schedule. ");
             System.out.println("6: quit program");
 
@@ -56,12 +57,49 @@ public class Client {
             processEventCreation(sc);
         } else if (option == 4) {
 
-
+        	taskOption(sc);
         } else if (option == 5) {
 
         }
     }
+    private static void taskOption (Scanner sc) {
+    	TaskManagementService tskman= new TaskManagementService();
+    	 System.out.println("Please enter the task description");
+    	 String taskDescription = sc.nextLine();
+    	 System.out.println("Please enter the task deadlinedate");
+    	 String taskDeadlineDateString = sc.nextLine();
+    	 System.out.println("Please enter the task deadlinetime");
+    	 String taskDeadlineTimeString = sc.nextLine();
+    	 UUID taskid=null;
+    	 
+    	   Date taskDeadlineDate=null;
+    	   boolean incorrect = true;
+    	   while (incorrect){  
+         try{
+             taskDeadlineDate = java.sql.Date.valueOf(taskDeadlineDateString);
+         } catch(Exception e){
+             System.out.println("The format was incorrect, please re-enter.");
+             continue;
+         }
+         incorrect=false;
+    	   }
+    	 Time taskDeadlineTime=null; 
+         boolean inc=true;
+         while(inc) {
+         
 
+         try{
+              taskDeadlineTime = java.sql.Time.valueOf(taskDeadlineTimeString);
+         } catch(Exception e){
+             System.out.println("The format was incorrect, please re-enter.");
+             continue;
+         }
+    	 inc=false;
+         }
+    	 
+    	 taskid=tskman.createTask(taskDescription,taskDeadlineDate,taskDeadlineTime);
+    	
+    }
     private static void processEventCreation(Scanner sc) {
         EventManagementService eventManagementService = new EventManagementService();
         // 1. Event creation
