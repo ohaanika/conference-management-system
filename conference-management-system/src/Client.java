@@ -24,11 +24,11 @@ public class Client {
         while (true) {
             // Describe user options.
             System.out.println("Please choose one of the following 5 options (enter number):");
-            System.out.println("1: ");
+            System.out.println("1: Create attendee and assign a hotel room.");
             System.out.println("2: ");
-            System.out.println("3: Create an event and schedule it");
+            System.out.println("3: Create an event and schedule it.");
             System.out.println("4: ");
-            System.out.println("5: Generate the entire schedule. ");
+            System.out.println("5: Generate the entire conference schedule. ");
             System.out.println("6: quit program");
 
             // Obtain user input.
