@@ -15,8 +15,7 @@ import java.sql.SQLException;
 class ConnectionManager {
 
     private static ConnectionManager singleton;
-    private static Connection con;
-    private String url = "jdbc:postgresql://comp421.cs.mcgill.ca:5432/cs421";
+    private static String url = "jdbc:postgresql://comp421.cs.mcgill.ca:5432/cs421";
 
     private ConnectionManager()
     {
@@ -27,42 +26,23 @@ class ConnectionManager {
             System.out.println("Class not found");
         }
 
-        // Connect to database
-        try {
-            con = DriverManager.getConnection(url, "cs421g14", "AaReRaAs14");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
     }
 
     public static Connection getConnectionInstance() {
 
         if (singleton==null){
             singleton = new ConnectionManager();
-            // This should never occur, but in case someone has used the connection to close it, and instance remains.
-            // Ensure that it is closed.
-            if (con != null){
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
-        return con;
-    }
-
-    public static void closeConnection(){
+        // Connect to database
+        Connection connection = null;
         try {
-            con.close();
+            connection = DriverManager.getConnection(url, "cs421g14", "AaReRaAs14");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        // TODO: This could be avoided, but for now lets leave it.
-        singleton = null;
-        con = null;
+        return connection;
     }
+
 
 }
 
