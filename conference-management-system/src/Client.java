@@ -1,4 +1,9 @@
+import Model.Location;
+
+import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.UUID;
 
 /**
  * The main GUI that allows users to do the following:
@@ -48,49 +53,84 @@ public class Client {
         } else if (option == 2) {
 
         } else if (option == 3) {
-            EventManagementService eventManagementService = new EventManagementService();
-
-            // Get user input to retrieve the type of event necessary.
-            System.out.println("What is the type of your event, enter one of: Interview, Workshop, Talk or General");
-            String type = sc.nextLine();
-
-            System.out.println("Please enter a title of your event. ");
-            String title = sc.nextLine();
-
-            System.out.println("Please enter a capacity (number of people) for your event (minimum 0). ");
-            int size = sc.nextInt();
-            sc.nextLine();
-
-            // If it is an interview:
-            if (type.toLowerCase().equals("interview")) {
-                // Obtain the delegateId and sponsorId
-                System.out.println("Please enter the deleateId of interviewee. ");
-                String delegate = sc.nextLine();
-                System.out.println("Please enter the sponsorId of interviewer. ");
-                String sponsor = sc.nextLine();
-                eventManagementService.createInterview(title, size, delegate, sponsor);
-                // If it is a talk:
-            } else if (type.toLowerCase().equals("talk")) {
-                System.out.println("Please enter the speaker of interviewee. ");
-                String speaker = sc.nextLine();
-                eventManagementService.createTalk(title, size, speaker);
-                // If it is a workshop.
-            } else if (type.toLowerCase().equals("workshop")) {
-                String companyId = "";
-                eventManagementService.createWorkshop(title, size,companyId);
-                // Otherwise it is a general event.
-            } else {
-                eventManagementService.createEvent(title, size);
-            }
-            System.out.println("The event was successfully created. It will now be scheduled to an available room at a specific time.");
-
-            eventManagementService.scheduleEvent();
+            processEventCreation(sc);
 
         } else if (option == 4) {
 
 
         } else if (option == 5) {
 
+        }
+    }
+
+    private static void processEventCreation(Scanner sc) {
+        EventManagementService eventManagementService = new EventManagementService();
+        //1. Event creation
+        // Get user input to retrieve the type of event necessary.
+        System.out.println("What is the type of your event, enter one of: Interview, Workshop, Talk or General");
+        String type = sc.nextLine();
+
+        System.out.println("Please enter a title for your event");
+        String title = sc.nextLine();
+
+        System.out.println("Please enter a capacity (number of people) for your event (minimum 0)");
+        int size = sc.nextInt();
+        sc.nextLine();
+
+        UUID eventId = null;
+        // If it is an interview:
+        if (type.toLowerCase().equals("interview")) {
+            // Obtain the delegateId and sponsorId
+            System.out.println("Please enter the deleateId of interviewee. ");
+            String delegate = sc.nextLine();
+            System.out.println("Please enter the sponsorId of interviewer. ");
+            String sponsor = sc.nextLine();
+            eventId = eventManagementService.createInterview(title, size, delegate, sponsor);
+            // If it is a talk:
+        } else if (type.toLowerCase().equals("talk")) {
+            System.out.println("Please enter the speaker of interviewee. ");
+            String speaker = sc.nextLine();
+            eventId = eventManagementService.createTalk(title, size, speaker);
+            // If it is a workshop.
+        } else if (type.toLowerCase().equals("workshop")) {
+            String companyId = "";
+            eventId = eventManagementService.createWorkshop(title, size, companyId);
+            // Otherwise it is a general event.
+        } else {
+            eventId = eventManagementService.createEvent(title, size);
+        }
+        System.out.println("The event was successfully created.");
+
+        // 2. Event scheduling
+        System.out.println("Would you like to schedule the created event (yes/no)?");
+        String schedule = sc.nextLine();
+        if (schedule.toLowerCase().equals("yes")) {
+            // Get date of the event and convert to correct format.
+            System.out.println("Enter event date (2019-12-01)");
+            //TODO: Ensure format is correct.
+            String date = sc.nextLine();
+            java.sql.Date dateSQL = java.sql.Date.valueOf(date);
+            // Get the start time of the event and convert to correct format.
+            //TODO: Ensure format is correct.
+            System.out.println("Enter start time (00:00:00)");
+            String startTime = sc.nextLine();
+            Time startTimeSQL = Time.valueOf(startTime);
+            // Get the end time of the event and convert to correct format.
+            //TODO: Ensure format is correct.
+            System.out.println("Enter end time (00:00:00)");
+            String endTime = sc.nextLine();
+            Time endTimeSQL = Time.valueOf(endTime);
+            // Allow user to pick an available location
+            System.out.println("Pick one of these available locations:");
+            ArrayList<Location> availableLocations = eventManagementService.findAvailableLocationForEvent(dateSQL,startTimeSQL,endTimeSQL);
+            for(int i=0; i<availableLocations.size();i++){
+                System.out.println(i+":"+ availableLocations.get(i).getLocationName());
+            }
+            int locationIndex = sc.nextInt();
+            sc.nextLine();
+            // Schedule the event.
+            eventManagementService.scheduleEvent(eventId,availableLocations.get(locationIndex), dateSQL, startTimeSQL, endTimeSQL);
+            System.out.println("The event was successfully scheduled.");
         }
     }
 }

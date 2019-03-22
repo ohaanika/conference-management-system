@@ -1,6 +1,7 @@
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import Model.Location;
+
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class EventManagementService {
@@ -38,7 +39,7 @@ public class EventManagementService {
         return eventId;
     }
 
-    public void createInterview(String title, int size, String delegateId, String sponsorId) {
+    public UUID createInterview(String title, int size, String delegateId, String sponsorId) {
         // First create the event.
         UUID eventId = createEvent(title, size);
         // Now create the interview.
@@ -60,9 +61,10 @@ public class EventManagementService {
             e.printStackTrace();
         }
 
+        return eventId;
     }
 
-    public void createTalk(String title, int size, String speakerId) {
+    public UUID createTalk(String title, int size, String speakerId) {
         // First create the event.
         UUID eventId = createEvent(title, size);
         // Now create the interview.
@@ -83,9 +85,11 @@ public class EventManagementService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return eventId;
     }
 
-    public void createWorkshop(String title, int size, String companyId) {
+    public UUID createWorkshop(String title, int size, String companyId) {
         // First create the event.
         UUID eventId = createEvent(title, size);
         // Now create the workshop.
@@ -108,9 +112,39 @@ public class EventManagementService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return eventId;
     }
 
-    public void scheduleEvent() {
+    public void scheduleEvent(UUID eventId, Location location, Date sqlDate, Time startTime, Time endTime) {
+        Connection connection = ConnectionManager.getConnectionInstance();
+        // The SQL to update an event with the start time , end time and date.
+        // TODO: Checks
+        //  1. Is the start time before the start date?
+        //  2. Is the date in the future? (DO WE NEED THIS)
+        PreparedStatement basicEvent = null;
+        String createEventSQL = "UPDATE EVENT SET " + "startTime='" + startTime.toString() + "',endTime='" + endTime.toString() + "',locationid='" + location.getLocationId() + "' WHERE eid='" + eventId.toString() + "';";
+
+        // An entry in the table is created for any event of any type due to ISA relationship.
+        try {
+            basicEvent = connection.prepareStatement(createEventSQL);
+            basicEvent.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
+    public ArrayList<Location> findAvailableLocationForEvent(Date sqlDate, Time startTime, Time endTime) {
+        ArrayList<Location> availableLocations = new ArrayList<Location>();
+
+        return availableLocations;
+    }
 }
