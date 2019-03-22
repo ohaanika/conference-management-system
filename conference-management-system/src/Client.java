@@ -41,7 +41,8 @@ public class Client {
 
     }
 
-    private static  void processOption(int option, Scanner sc) {
+    private static void processOption(int option, Scanner sc) {
+        // TODO: Need to catch exception and ensure that the console outputs it.
         if (option == 1) {
 
         } else if (option == 2) {
@@ -56,20 +57,34 @@ public class Client {
             System.out.println("Please enter a title of your event. ");
             String title = sc.nextLine();
 
-//            // If it is an interview:
-//            if(type.toLowerCase().equals("interview")){
-//                // TODO: Get the names.
-//                // Obtain the delegateId and sponsorId
-//                System.out.println("Please enter the deleateId of interviewee. ");
-//                System.out.println("Please enter the sponsorId of interviewer. ");
-//                eventManagementService.createInterview(title,"","");
-//            } else if (type.toLowerCase().equals("talk")) {
-//                eventManagementService.createTalk(title,"");
-//            } else {
-//                eventManagementService.createEvent(title);
-//            }
+            System.out.println("Please enter a capacity (number of people) for your event (minimum 0). ");
+            int size = sc.nextInt();
+            sc.nextLine();
+
+            // If it is an interview:
+            if (type.toLowerCase().equals("interview")) {
+                // Obtain the delegateId and sponsorId
+                System.out.println("Please enter the deleateId of interviewee. ");
+                String delegate = sc.nextLine();
+                System.out.println("Please enter the sponsorId of interviewer. ");
+                String sponsor = sc.nextLine();
+                eventManagementService.createInterview(title, size, delegate, sponsor);
+                // If it is a talk:
+            } else if (type.toLowerCase().equals("talk")) {
+                System.out.println("Please enter the speaker of interviewee. ");
+                String speaker = sc.nextLine();
+                eventManagementService.createTalk(title, size, speaker);
+                // If it is a workshop.
+            } else if (type.toLowerCase().equals("workshop")) {
+                String companyId = "";
+                eventManagementService.createWorkshop(title, size,companyId);
+                // Otherwise it is a general event.
+            } else {
+                eventManagementService.createEvent(title, size);
+            }
+            System.out.println("The event was successfully created. It will now be scheduled to an available room at a specific time.");
+
             eventManagementService.scheduleEvent();
-            // TODO: Need to catch exception and ensure that the console outputs it.
 
         } else if (option == 4) {
 
