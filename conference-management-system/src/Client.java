@@ -70,7 +70,7 @@ public class Client {
         System.out.println("What is the type of your event, enter one of: Interview, Workshop, Talk or General");
         String type = sc.nextLine();
 
-        System.out.println("Please enter a title for your event");
+        System.out.println("Please enter a title for your event (max 30 characters)");
         String title = sc.nextLine();
 
         System.out.println("Please enter a capacity (number of people) for your event (minimum 0)");
@@ -115,7 +115,7 @@ public class Client {
         if (schedule.toLowerCase().equals("yes")) {
             // Get date of the event and convert to correct format.
             boolean incorrect = true;
-            String date = null;
+            String date;
             java.sql.Date dateSQL = null;
             while (incorrect){
                 System.out.println("Enter event date in correct format (2019-12-01)");
@@ -142,13 +142,22 @@ public class Client {
             Time endTimeSQL = Time.valueOf(endTime);
 
             // Allow user to pick an available location
-            System.out.println("Pick one of these available locations:");
-            ArrayList<Location> availableLocations = eventManagementService.findAvailableLocationForEvent(dateSQL, startTimeSQL, endTimeSQL);
-            for (int i = 0; i < availableLocations.size(); i++) {
-                System.out.println(i + ":" + availableLocations.get(i).getLocationName());
+            ArrayList<Location> availableLocations = eventManagementService.findAvailableLocationForEvent(dateSQL, startTimeSQL, endTimeSQL, size);
+            boolean locationChosen = false;
+            int locationIndex=0;
+            while(!locationChosen){
+                System.out.println("Pick one of these available locations:");
+                for (int i = 0; i < availableLocations.size(); i++) {
+                    System.out.println(i + ":" + availableLocations.get(i).getLocationName());
+                }
+                locationIndex = sc.nextInt();
+                sc.nextLine();
+                if (locationIndex>=availableLocations.size()){
+                    System.out.println("Not a valid choice.");
+                    continue;
+                }
+                locationChosen=true;
             }
-            int locationIndex = sc.nextInt();
-            sc.nextLine();
 
             // Schedule the event.
             eventManagementService.scheduleEvent(eventId, availableLocations.get(locationIndex), dateSQL, startTimeSQL, endTimeSQL);

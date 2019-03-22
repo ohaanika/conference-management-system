@@ -27,6 +27,7 @@ public class EventManagementService {
             basicEvent.execute();
 
         } catch (SQLException e) {
+            System.out.println("Sorry the event could not be created.");
             e.printStackTrace();
         }
 
@@ -39,6 +40,16 @@ public class EventManagementService {
         return eventId;
     }
 
+    /**
+     * Creates an interview between a delegate(interviewee) and sponsor(interviewer)
+     *
+     * @param title      The title of the event
+     * @param size       The number of people interviewing
+     * @param delegateId
+     * @param sponsorId
+     *
+     * @return the event id of the newly created event.
+     */
     public UUID createInterview(String title, int size, String delegateId, String sponsorId) {
         // First create the event.
         UUID eventId = createEvent(title, size);
@@ -64,6 +75,14 @@ public class EventManagementService {
         return eventId;
     }
 
+    /**
+     * Create a talk and assign it a speaker.
+     *
+     * @param title
+     * @param size
+     * @param speakerId
+     * @return
+     */
     public UUID createTalk(String title, int size, String speakerId) {
         // First create the event.
         UUID eventId = createEvent(title, size);
@@ -89,6 +108,14 @@ public class EventManagementService {
         return eventId;
     }
 
+    /**
+     * Create a workshop and assign a company to it.
+     *
+     * @param title
+     * @param size
+     * @param companyId
+     * @return
+     */
     public UUID createWorkshop(String title, int size, String companyId) {
         // First create the event.
         UUID eventId = createEvent(title, size);
@@ -104,6 +131,7 @@ public class EventManagementService {
             basicEvent.execute();
 
         } catch (SQLException e) {
+            System.out.println("Sorry the event could not be created.");
             e.printStackTrace();
         }
 
@@ -116,14 +144,23 @@ public class EventManagementService {
         return eventId;
     }
 
+    /**
+     * Schedule an event given the desired parameters.
+     *
+     * @param eventId   The unique eventId from the Event table.
+     * @param location  The unique locationId for the room this event will occur in.
+     * @param sqlDate   The date of the event in the format (yyyy-mm-dd)
+     * @param startTime The start time of the event in the format (00:00:00)
+     * @param endTime   The end time of the event in the format (00:00:00)
+     */
     public void scheduleEvent(UUID eventId, Location location, Date sqlDate, Time startTime, Time endTime) {
         Connection connection = ConnectionManager.getConnectionInstance();
         // The SQL to update an event with the start time , end time and date.
         // TODO: Checks
         //  1. Is the start time before the start date?
         //  2. Is the date in the future? (DO WE NEED THIS)
-        PreparedStatement basicEvent = null;
-        String createEventSQL = "UPDATE EVENT SET " + "startTime='" + startTime.toString() + "',endTime='" + endTime.toString() + "',locationid='" + location.getLocationId() + "' WHERE eid='" + eventId.toString() + "';";
+        PreparedStatement basicEvent;
+        String createEventSQL = "UPDATE EVENT SET " + "startTime='" + startTime.toString() + "',endTime='" + endTime.toString() + "',locationid='" + location.getLocationName() +"',eventDate='"+sqlDate.toString() +"' WHERE eid='" + eventId.toString() + "';";
 
         // An entry in the table is created for any event of any type due to ISA relationship.
         try {
@@ -142,8 +179,40 @@ public class EventManagementService {
 
     }
 
-    public ArrayList<Location> findAvailableLocationForEvent(Date sqlDate, Time startTime, Time endTime) {
+    /**
+     * The locations that are available for that time.
+     *
+     * @param sqlDate   The date of the event.
+     * @param startTime The start time.
+     * @param endTime   The end time.
+     *
+     * @return availableLocations   The locations available in that period of time.
+     */
+    public ArrayList<Location> findAvailableLocationForEvent(Date sqlDate, Time startTime, Time endTime, int size) {
         ArrayList<Location> availableLocations = new ArrayList<Location>();
+        Connection connection = ConnectionManager.getConnectionInstance();
+        PreparedStatement basicEvent;
+        String createEventSQL = "SELECT * from Location WHERE lname NOT IN ( SELECT DISTINCT locationId FROM Event WHERE eventDate='"+ sqlDate.toString() +"' AND startTime<='"+ endTime.toString() +"' AND endTime>='"+startTime.toString()+ "' AND locationId IS NOT null) AND capacity>" + size + ";";
+
+        // An entry in the table is created for any event of any type due to ISA relationship.
+        try {
+            basicEvent = connection.prepareStatement(createEventSQL);
+            ResultSet rs = basicEvent.executeQuery();
+            while (rs.next()){
+                Location location = new Location();
+                location.setLocationName(rs.getString("lname"));
+                availableLocations.add(location);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return availableLocations;
     }
