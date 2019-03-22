@@ -98,6 +98,19 @@ public class Client {
          }
     	 
     	 taskid=tskman.createTask(taskDescription,taskDeadlineDate,taskDeadlineTime);
+    	 
+    	 System.out.println("Would you like to schedule the created event (yes/no)?");
+         String choice = sc.nextLine();
+         if (choice.toLowerCase().equals("yes")) {
+        	 System.out.println("Organizer Firstname?");
+             String fn = sc.nextLine();
+             System.out.println("Organizer Lastname?");
+             String ln = sc.nextLine();
+             System.out.println("please enter your organizer's index from the following list:");
+             list=
+             
+        	 
+         }
     	
     }
     private static void processEventCreation(Scanner sc) {
