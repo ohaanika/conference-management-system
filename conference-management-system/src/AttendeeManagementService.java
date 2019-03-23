@@ -6,93 +6,178 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import Model.Attendee;
+
 public class AttendeeManagementService {
 
-    /**
-     * Registers an attendee of specific type.
-     * Initializes the properties, generates the ID.
-     *
-     * @param firstName 
-     * @param lastName
-     * @param emailAddress
-     * @param shirtCut
-     * @param shirtSize
-     * @param dietaryRestrictions
-     */
-    public void createAttendee(String type, String firstName, String lastName, String emailAddress, String shirtCut, String shirtSize, String dietaryRestrictions, String major, String university, String province, String role, String company) {
-    	
+	/**
+	 * Registers an attendee of specific type. Initializes the properties, generates
+	 * the ID.
+	 *
+	 * @param firstName
+	 * @param lastName
+	 * @param emailAddress
+	 * @param shirtCut
+	 * @param shirtSize
+	 * @param dietaryRestrictions
+	 */
+	
+	// An entry in the table is created for any attendee of any type due to ISA
+			// relationship.
+
+	public String createAttendee(String type, String firstName, String lastName, String emailAddress, String shirtCut,
+			String shirtSize, String dietaryRestrictions, String major, String university, String province, String role,
+			String cname, String tier) {
+		
+		UUID aid = UUID.randomUUID();
+		
+		Connection connection = ConnectionManager.getConnectionInstance();
+		
+		PreparedStatement attendee = null;
+		
+        String createAttendeeSQL = "INSERT INTO attendee VALUES('" + aid.toString() + "','" + firstName + "','" + lastName + "','" + emailAddress + "','" 
+		+ shirtCut + "','" + shirtSize + "','" + dietaryRestrictions +"');";
+	
+        try {
+            attendee = connection.prepareStatement(createAttendeeSQL);
+            attendee.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+		
+        if(type.toLowerCase().equals("delegate")) {
+        	return createDelegate(aid, major, university, province);
+        }
+        
+        else if(type.toLowerCase().equals("organizer")) {
+        	return createOrganizer(aid, role);
+        }
+        
+        else {
+        	return createCompany(cname, tier);
+        }
+        
+	}
+	
+	private String createDelegate (UUID aid, String major, String university, String province) {
+		Connection connection = ConnectionManager.getConnectionInstance();
+		
+		PreparedStatement delegate = null;
+		
+		String createDelegateSQL ="INSERT INTO delegate VALUES('" + aid.toString() + "','" + major + "','" + university + "','" + province + "');";
+		
+		try {
+            delegate = connection.prepareStatement(createDelegateSQL);
+            delegate.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+		
+        return aid.toString();
+		
+	}
+	
+	private String createOrganizer (UUID aid, String role) {
+		Connection connection = ConnectionManager.getConnectionInstance();
+		
+		PreparedStatement organizer = null;
+		
+		String createOrganizerSQL ="INSERT INTO organizer VALUES('" + aid.toString() + "','" + role + "');";
+		
+		try {
+            organizer = connection.prepareStatement(createOrganizerSQL);
+            organizer.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+		
+        return aid.toString();
+		
+	}
+	
+	private String createCompany (String cname, String tier) {
+		Connection connection = ConnectionManager.getConnectionInstance();
+		
+		PreparedStatement company = null;
+		
+		String createCompanySQL ="INSERT INTO company VALUES('" + cname + "','" + tier + "');";
+		
+		try {
+            company = connection.prepareStatement(createCompanySQL);
+            company.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+		
+        return cname;
+		
+	}
+	
+
+	public List<Attendee> getAttendeeIDsFromName(String FirstName, String LastName) {
 		Connection connection = ConnectionManager.getConnectionInstance();
 
-		try {
-			UUID aid = UUID.randomUUID();
-			connection.prepareStatement("INSERT INTO Attendee VALUES (" + aid + "," + firstName + "," + lastName + ","
-					+ emailAddress + "," + shirtCut + "," + shirtSize + "," + dietaryRestrictions + ")");
-			connection.close();
-		} catch (SQLException e) {
-			System.err.println("msg: " + e.getMessage() +"code: "+ e.getErrorCode() +"state: "+ e.getSQLState());
-		}
-
-		// An entry in the table is created for any attendee of any type due to ISA
+		PreparedStatement basicGetting = null;
+		String getAttendeeSQL = "SELECT aid,emailaddress FROM Attendee WHERE firstname= '" + FirstName
+				+ "' AND lastname= '" + LastName + "';";
+		List<Attendee> attendees = new ArrayList<Attendee>();
+		// An entry in the table is created for any event of any type due to ISA
 		// relationship.
+		try {
+			basicGetting = connection.prepareStatement(getAttendeeSQL);
+			ResultSet rs = basicGetting.executeQuery();
+			while (rs.next()) {
+				UUID aid = UUID.fromString(rs.getString("aid"));
 
-		
-	}
-    public void getAttendee(UUID aid) {
-    	Connection connection = ConnectionManager.getConnectionInstance();
-    	try {
-			connection.("SELECT * FROM Attendee WHERE aid ");
+				String email = rs.getString("emailaddress");
+				Attendee attendee = new Attendee();
+				attendee.setEmail(email);
+				attendee.setFn(FirstName);
+				attendee.setLn(LastName);
+				attendee.setId(aid);
+				attendees.add(attendee);
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		try {
 			connection.close();
 		} catch (SQLException e) {
-			System.err.println("msg: " + e.getMessage() +"code: "+ e.getErrorCode() +"state: "+ e.getSQLState());
+			e.printStackTrace();
 		}
-//for debugging
-    public void printStr(String type, String firstName, String lastName, String emailAddress, String shirtCut, String shirtSize, String dietaryRestrictions, String major, String university, String province, String role, String company) {
-    	System.out.println("INSERT INTO Attendee VALUES (" +  UUID.randomUUID()+ "," + firstName + "," + lastName + "," + emailAddress
-    		+ "," + shirtCut + "," + shirtSize + "," + dietaryRestrictions + ")");
-    }
-    
-    
-	public List<Attendee> getAttendeeIDsFromName( String FirstName, String LastName) {
-		 Connection connection = ConnectionManager.getConnectionInstance();
-	       
-	        PreparedStatement basicGetting = null;
-	        String getAttendeeSQL = "SELECT aid,emailaddress FROM Attendee WHERE firstname= '"+FirstName+"' AND lastname= '"+LastName+"';";
-	        List<Attendee> attendees =new ArrayList<Attendee>();
-	        // An entry in the table is created for any event of any type due to ISA relationship.
-	        try {
-	           basicGetting = connection.prepareStatement(getAttendeeSQL);
-	           ResultSet rs= basicGetting.executeQuery();
-	           while ( rs.next()) {
-	        	  UUID  aid= UUID.fromString(rs.getString("aid"));
-	  
-	        	  String email= rs.getString("emailaddress");
-	        	  Attendee attendee= new Attendee();
-	        	  attendee.setEmail(email);
-	        	  attendee.setFn(FirstName);
-	        	  attendee.setLn(LastName);
-	        	  attendee.setId(aid);
-	        	  attendees.add(attendee);
-	        	  
-	        	   		
-	           }
-
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-
-	        try {
-	            connection.close();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
 
 		return attendees;
-		
-		
+
 	}
-    
-    
-    
+
 }
-    
-    
