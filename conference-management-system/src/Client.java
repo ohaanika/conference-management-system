@@ -45,14 +45,16 @@ public class Client {
             // Process the option chosen by user.
             processOption(option, sc);
         }
-
+        sc.close();
+        
+        System.out.println("Application terminated successfully!");
 
     }
 
     private static void processOption(int option, Scanner sc) {
         // TODO: Need to catch exception and ensure that the console outputs it.
         if (option == 1) {
-
+        	createAttendee (sc);
         } else if (option == 2) {
 
         } else if (option == 3) {
@@ -64,6 +66,67 @@ public class Client {
 
         }
     }
+    
+    private static void createAttendee(Scanner sc) {
+    	
+    	AttendeeManagementService attnMgmSer = new AttendeeManagementService();
+    	String attendeeIdentifier = null;
+    	System.out.println("Please enter: type");
+    	String type = sc.nextLine();
+    	System.out.println("Please enter: first name");
+    	String firstName = sc.nextLine();
+    	System.out.println("Please enter: last name");
+    	String lastName = sc.nextLine();
+    	System.out.println("Please enter: email address");
+    	String emailAddress = sc.nextLine();
+    	System.out.println("Please enter: shirt cut (F, M, U)");
+    	String shirtCut = sc.nextLine();
+    	
+    	while(!shirtCut.toLowerCase().equals("f") && !shirtCut.toLowerCase().equals("m") && !shirtCut.toLowerCase().equals("u")){
+    		System.out.println("Incorrect shirt cut. Please enter: shirt cut (F, M, U)");
+    		shirtCut = sc.nextLine();
+    	}
+    	
+    	System.out.println("Please enter: shirt size (XS, S, M, L, XL, XXL)");
+    	String shirtSize = sc.nextLine();
+    	
+    	while(!shirtSize.toLowerCase().equals("xs") && !shirtSize.toLowerCase().equals("s") && !shirtSize.toLowerCase().equals("m") 
+    			&& !shirtSize.toLowerCase().equals("l") && !shirtSize.toLowerCase().equals("xl") && !shirtSize.toLowerCase().equals("xxl")){
+    		System.out.println("Incorrect shirt cut. Please enter: shirt cut (F, M, U)");
+    		shirtSize = sc.nextLine();
+    	}
+    	System.out.println("Please enter: dietary restrictions");
+    	String dietaryRestrictions = sc.nextLine();
+    	
+    	if (type.toLowerCase().equals("delegate")) {
+    	System.out.println("Please enter: major");
+    	String major = sc.nextLine();
+    	System.out.println("Please enter: university");
+    	String university= sc.nextLine();
+    	System.out.println("Please enter: province");
+    	String province = sc.nextLine();
+    	attendeeIdentifier = attnMgmSer.createAttendee(type, firstName, lastName, emailAddress, shirtCut, shirtSize.toUpperCase(), dietaryRestrictions, major, university, province, "", "", "");
+    	
+    	}
+    	
+    	else if(type.toLowerCase().equals("organizer")) {
+    	System.out.println("Please enter: role");
+    	String role = sc.nextLine();
+    	attendeeIdentifier = attnMgmSer.createAttendee(type, firstName, lastName, emailAddress, shirtCut, shirtSize.toUpperCase(), dietaryRestrictions, "", "", "", role, "", "");
+    	}
+    	
+    	else {
+    	System.out.println("Please enter: company");
+    	String companyName = sc.nextLine();
+    	System.out.println("Please enter: tier");
+    	String tier = sc.nextLine();
+    	attendeeIdentifier= attnMgmSer.createAttendee(type, firstName, lastName, emailAddress, shirtCut, shirtSize.toUpperCase(), dietaryRestrictions, "", "", "", "", companyName, tier);
+    	}
+    	
+    	System.out.println("Attendee " + attendeeIdentifier + " created successfully");
+    	
+    }
+    
     private static void taskOption (Scanner sc) {
     	TaskManagementService tskman= new TaskManagementService();
     	AttendeeManagementService atman= new AttendeeManagementService();
@@ -131,6 +194,7 @@ public class Client {
     private static void processEventCreation(Scanner sc) {
         EventManagementService eventManagementService = new EventManagementService();
         // 1. Event creation
+        
 
         // Get user input to retrieve the type of event necessary.
         System.out.println("What is the type of your event, enter one of: Interview, Workshop, Talk or General");
