@@ -9,290 +9,293 @@ import java.util.Scanner;
 import java.util.UUID;
 
 /**
- * The main GUI that allows users to do the following:
- * Choose from one of the following 5 options:
- * 1.
- * 2.
- * 3.
- * 4.
- * 5.
- * 6. Quit the console.
+ * The main GUI that allows users to do the following: Choose from one of the
+ * following 5 options: 1. 2. 3. 4. 5. 6. Quit the console.
  */
 public class Client {
 
-    public static void main(String[] args) {
-        // Create scanner to obtain a user input.
-        Scanner sc = new Scanner(System.in);
-        // Until the user quits, do the following.
-        while (true) {
-            // Describe user options.
-            System.out.println("Please choose one of the following 5 options (enter number):");
-            System.out.println("1: Create attendee.");
-            System.out.println("2: Perform hotel room assignments.");
-            System.out.println("3: Create an event and schedule it.");
-            System.out.println("4: Task operation: Create task/assign task to organizer ");
-            System.out.println("5: Generate the entire conference schedule. ");
-            System.out.println("6: Quit program");
+	public static void main(String[] args) {
+		// Create scanner to obtain a user input.
+		Scanner sc = new Scanner(System.in);
+		// Until the user quits, do the following.
+		while (true) {
+			// Describe user options.
+			System.out.println("Please choose one of the following 5 options (enter number):");
+			System.out.println("1: Create attendee.");
+			System.out.println("2: Perform hotel room assignments.");
+			System.out.println("3: Create an event and schedule it.");
+			System.out.println("4: Task operation: Create task/assign task to organizer ");
+			System.out.println("5: Generate the entire conference schedule. ");
+			System.out.println("6: Quit program");
 
-            // Obtain user input.
-            int option = sc.nextInt();
-            sc.nextLine();
+			// Obtain user input.
+			int option = sc.nextInt();
+			sc.nextLine();
 
-            if (option == 6) {
-                break;
-            }
+			if (option == 6) {
+				break;
+			}
 
-            // Process the option chosen by user.
-            processOption(option, sc);
-        }
-        sc.close();
-        
-        System.out.println("Application terminated successfully!");
+			// Process the option chosen by user.
+			processOption(option, sc);
+		}
+		sc.close();
 
-    }
+		System.out.println("Application terminated successfully!");
 
-    private static void processOption(int option, Scanner sc) {
-        // TODO: Need to catch exception and ensure that the console outputs it.
-        if (option == 1) {
-        	createAttendee (sc);
-        } else if (option == 2) {
+	}
 
-        } else if (option == 3) {
-            processEventCreation(sc);
-        } else if (option == 4) {
+	private static void processOption(int option, Scanner sc) {
+		// TODO: Need to catch exception and ensure that the console outputs it.
+		if (option == 1) {
+			createAttendee(sc);
+		} else if (option == 2) {
 
-        	taskOption(sc);
-        } else if (option == 5) {
+		} else if (option == 3) {
+			processEventCreation(sc);
+		} else if (option == 4) {
 
-        }
-    }
-    
-    private static void createAttendee(Scanner sc) {
-    	
-    	AttendeeManagementService attnMgmSer = new AttendeeManagementService();
-    	String attendeeIdentifier = null;
-    	System.out.println("Please enter: type");
-    	String type = sc.nextLine();
-    	System.out.println("Please enter: first name");
-    	String firstName = sc.nextLine();
-    	System.out.println("Please enter: last name");
-    	String lastName = sc.nextLine();
-    	System.out.println("Please enter: email address");
-    	String emailAddress = sc.nextLine();
-    	System.out.println("Please enter: shirt cut (F, M, U)");
-    	String shirtCut = sc.nextLine();
-    	
-    	while(!shirtCut.toLowerCase().equals("f") && !shirtCut.toLowerCase().equals("m") && !shirtCut.toLowerCase().equals("u")){
-    		System.out.println("Incorrect shirt cut. Please enter: shirt cut (F, M, U)");
-    		shirtCut = sc.nextLine();
-    	}
-    	
-    	System.out.println("Please enter: shirt size (XS, S, M, L, XL, XXL)");
-    	String shirtSize = sc.nextLine();
-    	
-    	while(!shirtSize.toLowerCase().equals("xs") && !shirtSize.toLowerCase().equals("s") && !shirtSize.toLowerCase().equals("m") 
-    			&& !shirtSize.toLowerCase().equals("l") && !shirtSize.toLowerCase().equals("xl") && !shirtSize.toLowerCase().equals("xxl")){
-    		System.out.println("Incorrect shirt cut. Please enter: shirt cut (F, M, U)");
-    		shirtSize = sc.nextLine();
-    	}
-    	System.out.println("Please enter: dietary restrictions");
-    	String dietaryRestrictions = sc.nextLine();
-    	
-    	if (type.toLowerCase().equals("delegate")) {
-    	System.out.println("Please enter: major");
-    	String major = sc.nextLine();
-    	System.out.println("Please enter: university");
-    	String university= sc.nextLine();
-    	System.out.println("Please enter: province");
-    	String province = sc.nextLine();
-    	attendeeIdentifier = attnMgmSer.createAttendee(type, firstName, lastName, emailAddress, shirtCut, shirtSize.toUpperCase(), dietaryRestrictions, major, university, province, "", "", "");
-    	
-    	}
-    	
-    	else if(type.toLowerCase().equals("organizer")) {
-    	System.out.println("Please enter: role");
-    	String role = sc.nextLine();
-    	attendeeIdentifier = attnMgmSer.createAttendee(type, firstName, lastName, emailAddress, shirtCut, shirtSize.toUpperCase(), dietaryRestrictions, "", "", "", role, "", "");
-    	}
-    	
-    	else {
-    	System.out.println("Please enter: company");
-    	String companyName = sc.nextLine();
-    	System.out.println("Please enter: tier");
-    	String tier = sc.nextLine();
-    	attendeeIdentifier= attnMgmSer.createAttendee(type, firstName, lastName, emailAddress, shirtCut, shirtSize.toUpperCase(), dietaryRestrictions, "", "", "", "", companyName, tier);
-    	}
-    	
-    	System.out.println("Attendee " + attendeeIdentifier + " created successfully!\n");
-    	
-    	
-    }
-    
-    private static void taskOption (Scanner sc) {
-    	TaskManagementService tskman= new TaskManagementService();
-    	AttendeeManagementService atman= new AttendeeManagementService();
-    	 System.out.println("Please enter the task description");
-    	 String taskDescription = sc.nextLine();
-    	 System.out.println("Please enter the task deadlinedate");
-    	 String taskDeadlineDateString = sc.nextLine();
-    	 System.out.println("Please enter the task deadlinetime");
-    	 String taskDeadlineTimeString = sc.nextLine();
-    	 UUID taskid=null;
-    	 
-    	   Date taskDeadlineDate=null;
-    	   boolean incorrect = true;
-    	   while (incorrect){  
-         try{
-             taskDeadlineDate = java.sql.Date.valueOf(taskDeadlineDateString);
-         } catch(Exception e){
-             System.out.println("The format was incorrect, please re-enter.");
-             continue;
-         }
-         incorrect=false;
-    	   }
-    	 Time taskDeadlineTime=null; 
-         boolean inc=true;
-         while(inc) {
-         
+			taskOption(sc);
+		} else if (option == 5) {
 
-         try{
-              taskDeadlineTime = java.sql.Time.valueOf(taskDeadlineTimeString);
-         } catch(Exception e){
-             System.out.println("The format was incorrect, please re-enter.");
-             continue;
-         }
-    	 inc=false;
-         }
-    	 
-    	 taskid=tskman.createTask(taskDescription,taskDeadlineDate,taskDeadlineTime);
-    	 
-    	 System.out.println("Task created Successfully!Would you like to give it to an organizer (yes/no)?");
-         String choice = sc.nextLine();
-         if (choice.toLowerCase().equals("yes")) {
-        	 System.out.println("Organizer Firstname?");
-             String fn = sc.nextLine();
-             System.out.println("Organizer Lastname?");
-             String ln = sc.nextLine();
-             System.out.println("please enter your organizer's index from the following list:");
-             List<Attendee>attendees= atman.getAttendeeIDsFromName(fn, ln);
-             int i =0;
-             for(Attendee attendee:attendees) {
-                 System.out.println(i+": "+attendee.getEmail()+" , "+attendee.getId()); 
-            	 
-             }
-             int indx = sc.nextInt();
-             Attendee chosenOne= attendees.get(indx);
-             tskman.GiveTaskToOrganizer(chosenOne.getId(), taskid);
-             System.out.println("assigned Successfully!"); 
-             
-             
-             
-             
-        	 
-         }
-    	
-    }
-    private static void processEventCreation(Scanner sc) {
-        EventManagementService eventManagementService = new EventManagementService();
-        // 1. Event creation
-        
+		}
+	}
 
-        // Get user input to retrieve the type of event necessary.
-        System.out.println("What is the type of your event, enter one of: Interview, Workshop, Talk or General");
-        String type = sc.nextLine();
+	private static void createAttendee(Scanner sc) {
 
-        System.out.println("Please enter a title for your event (max 30 characters)");
-        String title = sc.nextLine();
+		AttendeeManagementService attnMgmSer = new AttendeeManagementService();
+		String attendeeIdentifier = null;
+		System.out.println("Please enter type of attendee");
+		String type = sc.nextLine();
+		System.out.println("Please enter first name");
+		String firstName = sc.nextLine();
+		System.out.println("Please enter last name");
+		String lastName = sc.nextLine();
+		System.out.println("Please enter email address");
+		String emailAddress = sc.nextLine();
+		System.out.println("Please enter shirt cut (F, M, U)");
+		String shirtCut = sc.nextLine();
 
-        System.out.println("Please enter a capacity (number of people) for your event (minimum 0)");
-        int size = sc.nextInt();
-        sc.nextLine();
+		while (!shirtCut.toLowerCase().equals("f") && !shirtCut.toLowerCase().equals("m")
+				&& !shirtCut.toLowerCase().equals("u")) {
+			System.out.println("Incorrect shirt cut. Please enter: shirt cut (F, M, U)");
+			shirtCut = sc.nextLine();
+		}
 
-        UUID eventId = null;
-        // If it is an interview:
-        if (type.toLowerCase().equals("interview")) {
-            // Obtain the delegateId and sponsorId
-            System.out.println("Please enter the deleateId of interviewee. ");
-            String delegate = sc.nextLine();
+		System.out.println("Please enter shirt size (XS, S, M, L, XL, XXL)");
+		String shirtSize = sc.nextLine();
 
-            System.out.println("Please enter the sponsorId of interviewer. ");
-            String sponsor = sc.nextLine();
+		while (!shirtSize.toLowerCase().equals("xs") && !shirtSize.toLowerCase().equals("s")
+				&& !shirtSize.toLowerCase().equals("m") && !shirtSize.toLowerCase().equals("l")
+				&& !shirtSize.toLowerCase().equals("xl") && !shirtSize.toLowerCase().equals("xxl")) {
+			System.out.println("Incorrect shirt cut. Please enter: shirt cut (F, M, U)");
+			shirtSize = sc.nextLine();
+		}
 
-            eventId = eventManagementService.createInterview(title, size, delegate, sponsor);
+		System.out.println("Please enter: dietary restrictions");
+		String dietaryRestrictions = sc.nextLine();
 
-            // If it is a talk:
-        } else if (type.toLowerCase().equals("talk")) {
-            System.out.println("Please enter the speaker of interviewee. ");
-            String speaker = sc.nextLine();
+		if (type.toLowerCase().equals("delegate")) {
+			System.out.println("Please enter: major");
+			String major = sc.nextLine();
+			System.out.println("Please enter: university");
+			String university = sc.nextLine();
+			System.out.println("Please enter: province");
+			String province = sc.nextLine();
+			attendeeIdentifier = attnMgmSer.createAttendee(type, firstName, lastName, emailAddress, shirtCut,
+					shirtSize.toUpperCase(), dietaryRestrictions, major, university, province, "", "", "");
 
-            eventId = eventManagementService.createTalk(title, size, speaker);
-            // If it is a workshop.
-        } else if (type.toLowerCase().equals("workshop")) {
-            String companyId = "";
-            eventId = eventManagementService.createWorkshop(title, size, companyId);
-            // Otherwise it is a general event.
-        } else if (type.toLowerCase().equals("general")) {
-            eventId = eventManagementService.createEvent(title, size);
-        } else {
-            System.out.println("That was not a valid option.");
-            return;
-        }
-        System.out.println("The event was successfully created.");
+		}
 
-        // 2. Event scheduling
+		else if (type.toLowerCase().equals("organizer")) {
+			System.out.println("Please enter: role");
+			String role = sc.nextLine();
+			attendeeIdentifier = attnMgmSer.createAttendee(type, firstName, lastName, emailAddress, shirtCut,
+					shirtSize.toUpperCase(), dietaryRestrictions, "", "", "", role, "", "");
+		}
 
-        System.out.println("Would you like to schedule the created event (yes/no)?");
-        String schedule = sc.nextLine();
-        if (schedule.toLowerCase().equals("yes")) {
-            // Get date of the event and convert to correct format.
-            boolean incorrect = true;
-            String date;
-            java.sql.Date dateSQL = null;
-            while (incorrect){
-                System.out.println("Enter event date in correct format (2019-12-01)");
-                date = sc.nextLine();
-                try{
-                    dateSQL = java.sql.Date.valueOf(date);
-                } catch(Exception e){
-                    System.out.println("The format was incorrect, please re-enter.");
-                    continue;
-                }
-                incorrect = false;
-            }
+		else if (type.toLowerCase().equals("sponsor")) {
+			System.out.println("Please enter company name");
+			String companyName = sc.nextLine();
+			attendeeIdentifier = attnMgmSer.createAttendee(type, firstName, lastName, emailAddress, shirtCut,
+					shirtSize.toUpperCase(), dietaryRestrictions, "", "", "", "", companyName, "");
+		}
 
-            // Get the start time of the event and convert to correct format.
-            //TODO: Ensure format is correct.
-            System.out.println("Enter start time (00:00:00)");
-            String startTime = sc.nextLine();
-            Time startTimeSQL = Time.valueOf(startTime);
+		else {
+			System.out.println("Please enter company name");
+			String companyName = sc.nextLine();
+			System.out.println("Please enter tier");
+			String tier = sc.nextLine();
+			attendeeIdentifier = attnMgmSer.createAttendee(type, firstName, lastName, emailAddress, shirtCut,
+					shirtSize.toUpperCase(), dietaryRestrictions, "", "", "", "", companyName, tier);
+		}
 
-            // Get the end time of the event and convert to correct format.
-            //TODO: Ensure format is correct.
-            System.out.println("Enter end time (00:00:00)");
-            String endTime = sc.nextLine();
-            Time endTimeSQL = Time.valueOf(endTime);
+		System.out.println("Attendee " + attendeeIdentifier + " created successfully!\n");
 
-            // Allow user to pick an available location
-            ArrayList<Location> availableLocations = eventManagementService.findAvailableLocationForEvent(dateSQL, startTimeSQL, endTimeSQL, size);
-            boolean locationChosen = false;
-            int locationIndex=0;
-            while(!locationChosen){
-                System.out.println("Pick one of these available locations:");
-                for (int i = 0; i < availableLocations.size(); i++) {
-                    System.out.println(i + ":" + availableLocations.get(i).getLocationName());
-                }
-                locationIndex = sc.nextInt();
-                sc.nextLine();
-                if (locationIndex>=availableLocations.size()){
-                    System.out.println("Not a valid choice.");
-                    continue;
-                }
-                locationChosen=true;
-            }
+	}
 
-            // Schedule the event.
-            eventManagementService.scheduleEvent(eventId, availableLocations.get(locationIndex), dateSQL, startTimeSQL, endTimeSQL);
-            System.out.println("The event was successfully scheduled.");
-        }
-    }
+	private static void taskOption(Scanner sc) {
+		TaskManagementService tskman = new TaskManagementService();
+		AttendeeManagementService atman = new AttendeeManagementService();
+		System.out.println("Please enter the task description");
+		String taskDescription = sc.nextLine();
+		System.out.println("Please enter the task deadlinedate");
+		String taskDeadlineDateString = sc.nextLine();
+		System.out.println("Please enter the task deadlinetime");
+		String taskDeadlineTimeString = sc.nextLine();
+		UUID taskid = null;
+
+		Date taskDeadlineDate = null;
+		boolean incorrect = true;
+		while (incorrect) {
+			try {
+				taskDeadlineDate = java.sql.Date.valueOf(taskDeadlineDateString);
+			} catch (Exception e) {
+				System.out.println("The format was incorrect, please re-enter.");
+				continue;
+			}
+			incorrect = false;
+		}
+		Time taskDeadlineTime = null;
+		boolean inc = true;
+		while (inc) {
+
+			try {
+				taskDeadlineTime = java.sql.Time.valueOf(taskDeadlineTimeString);
+			} catch (Exception e) {
+				System.out.println("The format was incorrect, please re-enter.");
+				continue;
+			}
+			inc = false;
+		}
+
+		taskid = tskman.createTask(taskDescription, taskDeadlineDate, taskDeadlineTime);
+
+		System.out.println("Task created Successfully!Would you like to give it to an organizer (yes/no)?");
+		String choice = sc.nextLine();
+		if (choice.toLowerCase().equals("yes")) {
+			System.out.println("Organizer Firstname?");
+			String fn = sc.nextLine();
+			System.out.println("Organizer Lastname?");
+			String ln = sc.nextLine();
+			System.out.println("Please enter your organizer's index from the following list:");
+			List<Attendee> attendees = atman.getAttendeeIDsFromName(fn, ln);
+			int i = 0;
+			for (Attendee attendee : attendees) {
+				System.out.println(i + ": " + attendee.getEmail() + " , " + attendee.getId());
+
+			}
+			int indx = sc.nextInt();
+			Attendee chosenOne = attendees.get(indx);
+			tskman.GiveTaskToOrganizer(chosenOne.getId(), taskid);
+			System.out.println("Assigned Successfully!");
+
+		}
+
+	}
+
+	private static void processEventCreation(Scanner sc) {
+		EventManagementService eventManagementService = new EventManagementService();
+		// 1. Event creation
+
+		// Get user input to retrieve the type of event necessary.
+		System.out.println("What is the type of your event, enter one of: Interview, Workshop, Talk or General");
+		String type = sc.nextLine();
+
+		System.out.println("Please enter a title for your event (max 30 characters)");
+		String title = sc.nextLine();
+
+		System.out.println("Please enter a capacity (number of people) for your event (minimum 0)");
+		int size = sc.nextInt();
+		sc.nextLine();
+
+		UUID eventId = null;
+		// If it is an interview:
+		if (type.toLowerCase().equals("interview")) {
+			// Obtain the delegateId and sponsorId
+			System.out.println("Please enter the deleateId of interviewee. ");
+			String delegate = sc.nextLine();
+
+			System.out.println("Please enter the sponsorId of interviewer. ");
+			String sponsor = sc.nextLine();
+
+			eventId = eventManagementService.createInterview(title, size, delegate, sponsor);
+
+			// If it is a talk:
+		} else if (type.toLowerCase().equals("talk")) {
+			System.out.println("Please enter the speaker of interviewee. ");
+			String speaker = sc.nextLine();
+
+			eventId = eventManagementService.createTalk(title, size, speaker);
+			// If it is a workshop.
+		} else if (type.toLowerCase().equals("workshop")) {
+			String companyId = "";
+			eventId = eventManagementService.createWorkshop(title, size, companyId);
+			// Otherwise it is a general event.
+		} else if (type.toLowerCase().equals("general")) {
+			eventId = eventManagementService.createEvent(title, size);
+		} else {
+			System.out.println("That was not a valid option.");
+			return;
+		}
+		System.out.println("The event was successfully created.");
+
+		// 2. Event scheduling
+
+		System.out.println("Would you like to schedule the created event (yes/no)?");
+		String schedule = sc.nextLine();
+		if (schedule.toLowerCase().equals("yes")) {
+			// Get date of the event and convert to correct format.
+			boolean incorrect = true;
+			String date;
+			java.sql.Date dateSQL = null;
+			while (incorrect) {
+				System.out.println("Enter event date in correct format (2019-12-01)");
+				date = sc.nextLine();
+				try {
+					dateSQL = java.sql.Date.valueOf(date);
+				} catch (Exception e) {
+					System.out.println("The format was incorrect, please re-enter.");
+					continue;
+				}
+				incorrect = false;
+			}
+
+			// Get the start time of the event and convert to correct format.
+			// TODO: Ensure format is correct.
+			System.out.println("Enter start time (00:00:00)");
+			String startTime = sc.nextLine();
+			Time startTimeSQL = Time.valueOf(startTime);
+
+			// Get the end time of the event and convert to correct format.
+			// TODO: Ensure format is correct.
+			System.out.println("Enter end time (00:00:00)");
+			String endTime = sc.nextLine();
+			Time endTimeSQL = Time.valueOf(endTime);
+
+			// Allow user to pick an available location
+			ArrayList<Location> availableLocations = eventManagementService.findAvailableLocationForEvent(dateSQL,
+					startTimeSQL, endTimeSQL, size);
+			boolean locationChosen = false;
+			int locationIndex = 0;
+			while (!locationChosen) {
+				System.out.println("Pick one of these available locations:");
+				for (int i = 0; i < availableLocations.size(); i++) {
+					System.out.println(i + ":" + availableLocations.get(i).getLocationName());
+				}
+				locationIndex = sc.nextInt();
+				sc.nextLine();
+				if (locationIndex >= availableLocations.size()) {
+					System.out.println("Not a valid choice.");
+					continue;
+				}
+				locationChosen = true;
+			}
+
+			// Schedule the event.
+			eventManagementService.scheduleEvent(eventId, availableLocations.get(locationIndex), dateSQL, startTimeSQL,
+					endTimeSQL);
+			System.out.println("The event was successfully scheduled.");
+		}
+	}
 }

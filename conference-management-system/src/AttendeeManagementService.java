@@ -59,6 +59,10 @@ public class AttendeeManagementService {
         	return createOrganizer(aid, role);
         }
         
+        else if (type.toLowerCase().equals("sponsor")) {
+        	return createSponsor(aid, cname);
+        }
+        
         else {
         	return createCompany(cname, tier);
         }
@@ -115,6 +119,31 @@ public class AttendeeManagementService {
 		
 	}
 	
+	private String createSponsor (UUID aid, String cname) {
+		
+		Connection connection = ConnectionManager.getConnectionInstance();
+		
+		PreparedStatement sponsor = null;
+		
+		String createSponsorSQL ="INSERT INTO sponsor VALUES('" + aid + "','" + cname + "');";
+		
+		try {
+            sponsor = connection.prepareStatement(createSponsorSQL);
+            sponsor.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+		
+        return aid.toString();
+}
+	
 	private String createCompany (String cname, String tier) {
 		Connection connection = ConnectionManager.getConnectionInstance();
 		
@@ -136,9 +165,9 @@ public class AttendeeManagementService {
             e.printStackTrace();
         }
 		
-        return cname;
-		
+		return cname;
 	}
+	
 	
 
 	public List<Attendee> getAttendeeIDsFromName(String FirstName, String LastName) {
