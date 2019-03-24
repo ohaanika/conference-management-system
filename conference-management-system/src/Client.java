@@ -30,9 +30,9 @@ public class Client {
             System.out.println("1: Create attendee.");
             System.out.println("2: Perform hotel room assignments.");
             System.out.println("3: Create an event and schedule it.");
-            System.out.println("4:Task operation: Create task/assign task to organizer ");
+            System.out.println("4: Task operation: Create task/assign task to organizer ");
             System.out.println("5: Generate the entire conference schedule. ");
-            System.out.println("6: quit program");
+            System.out.println("6: Quit program");
 
             // Obtain user input.
             int option = sc.nextInt();
@@ -123,7 +123,8 @@ public class Client {
     	attendeeIdentifier= attnMgmSer.createAttendee(type, firstName, lastName, emailAddress, shirtCut, shirtSize.toUpperCase(), dietaryRestrictions, "", "", "", "", companyName, tier);
     	}
     	
-    	System.out.println("Attendee " + attendeeIdentifier + " created successfully");
+    	System.out.println("Attendee " + attendeeIdentifier + " created successfully!\n");
+    	
     	
     }
     
