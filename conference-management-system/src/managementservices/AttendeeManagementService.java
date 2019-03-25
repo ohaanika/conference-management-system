@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
 import model.Attendee;
 import model.Delegate;
 import model.Speaker;
@@ -14,33 +15,32 @@ import model.Sponsor;
 
 public class AttendeeManagementService {
 
-	/**
-	 * Registers an attendee of specific type. Initializes the properties, generates
-	 * the ID.
-	 *
-	 * @param firstName
-	 * @param lastName
-	 * @param emailAddress
-	 * @param shirtCut
-	 * @param shirtSize
-	 * @param dietaryRestrictions
-	 */
+    /**
+     * Registers an attendee of specific type. Initializes the properties, generates
+     * the ID.
+     *
+     * @param firstName
+     * @param lastName
+     * @param emailAddress
+     * @param shirtCut
+     * @param shirtSize
+     * @param dietaryRestrictions
+     */
 
-	// An entry in the table is created for any attendee of any type due to ISA
-			// relationship.
+    // An entry in the table is created for any attendee of any type due to ISA
+    // relationship.
+    public String createAttendee(String type, String firstName, String lastName, String emailAddress, String shirtCut,
+                                 String shirtSize, String dietaryRestrictions, String major, String university, String province, String role,
+                                 String cname, String tier) {
 
-	public String createAttendee(String type, String firstName, String lastName, String emailAddress, String shirtCut,
-			String shirtSize, String dietaryRestrictions, String major, String university, String province, String role,
-			String cname, String tier) {
+        UUID aid = UUID.randomUUID();
 
-		UUID aid = UUID.randomUUID();
+        Connection connection = ConnectionManager.getConnectionInstance();
 
-		Connection connection = ConnectionManager.getConnectionInstance();
-
-		PreparedStatement attendee = null;
+        PreparedStatement attendee = null;
 
         String createAttendeeSQL = "INSERT INTO attendee VALUES('" + aid.toString() + "','" + firstName + "','" + lastName + "','" + emailAddress + "','"
-		+ shirtCut + "','" + shirtSize + "','" + dietaryRestrictions +"');";
+                + shirtCut + "','" + shirtSize + "','" + dietaryRestrictions + "');";
 
         try {
             attendee = connection.prepareStatement(createAttendeeSQL);
@@ -56,32 +56,26 @@ public class AttendeeManagementService {
             e.printStackTrace();
         }
 
-        if(type.toLowerCase().equals("delegate")) {
-        	return createDelegate(aid, major, university, province);
+        if (type.toLowerCase().equals("delegate")) {
+            return createDelegate(aid, major, university, province);
+        } else if (type.toLowerCase().equals("organizer")) {
+            return createOrganizer(aid, role);
+        } else if (type.toLowerCase().equals("sponsor")) {
+            return createSponsor(aid, cname);
+        } else {
+            return createCompany(cname, tier);
         }
 
-        else if(type.toLowerCase().equals("organizer")) {
-        	return createOrganizer(aid, role);
-        }
+    }
 
-        else if (type.toLowerCase().equals("sponsor")) {
-        	return createSponsor(aid, cname);
-        }
+    private String createDelegate(UUID aid, String major, String university, String province) {
+        Connection connection = ConnectionManager.getConnectionInstance();
 
-        else {
-        	return createCompany(cname, tier);
-        }
+        PreparedStatement delegate = null;
 
-	}
+        String createDelegateSQL = "INSERT INTO delegate VALUES('" + aid.toString() + "','" + major + "','" + university + "','" + province + "');";
 
-	private String createDelegate (UUID aid, String major, String university, String province) {
-		Connection connection = ConnectionManager.getConnectionInstance();
-
-		PreparedStatement delegate = null;
-
-		String createDelegateSQL ="INSERT INTO delegate VALUES('" + aid.toString() + "','" + major + "','" + university + "','" + province + "');";
-
-		try {
+        try {
             delegate = connection.prepareStatement(createDelegateSQL);
             delegate.execute();
 
@@ -97,16 +91,16 @@ public class AttendeeManagementService {
 
         return aid.toString();
 
-	}
+    }
 
-	private String createOrganizer (UUID aid, String role) {
-		Connection connection = ConnectionManager.getConnectionInstance();
+    private String createOrganizer(UUID aid, String role) {
+        Connection connection = ConnectionManager.getConnectionInstance();
 
-		PreparedStatement organizer = null;
+        PreparedStatement organizer = null;
 
-		String createOrganizerSQL ="INSERT INTO organizer VALUES('" + aid.toString() + "','" + role + "');";
+        String createOrganizerSQL = "INSERT INTO organizer VALUES('" + aid.toString() + "','" + role + "');";
 
-		try {
+        try {
             organizer = connection.prepareStatement(createOrganizerSQL);
             organizer.execute();
 
@@ -122,17 +116,17 @@ public class AttendeeManagementService {
 
         return aid.toString();
 
-	}
+    }
 
-	private String createSponsor (UUID aid, String cname) {
+    private String createSponsor(UUID aid, String cname) {
 
-		Connection connection = ConnectionManager.getConnectionInstance();
+        Connection connection = ConnectionManager.getConnectionInstance();
 
-		PreparedStatement sponsor = null;
+        PreparedStatement sponsor = null;
 
-		String createSponsorSQL ="INSERT INTO sponsor VALUES('" + aid + "','" + cname + "');";
+        String createSponsorSQL = "INSERT INTO sponsor VALUES('" + aid + "','" + cname + "');";
 
-		try {
+        try {
             sponsor = connection.prepareStatement(createSponsorSQL);
             sponsor.execute();
 
@@ -147,16 +141,16 @@ public class AttendeeManagementService {
         }
 
         return aid.toString();
-}
+    }
 
-	private String createCompany (String cname, String tier) {
-		Connection connection = ConnectionManager.getConnectionInstance();
+    private String createCompany(String cname, String tier) {
+        Connection connection = ConnectionManager.getConnectionInstance();
 
-		PreparedStatement company = null;
+        PreparedStatement company = null;
 
-		String createCompanySQL ="INSERT INTO company VALUES('" + cname + "','" + tier + "');";
+        String createCompanySQL = "INSERT INTO company VALUES('" + cname + "','" + tier + "');";
 
-		try {
+        try {
             company = connection.prepareStatement(createCompanySQL);
             company.execute();
 
@@ -170,185 +164,187 @@ public class AttendeeManagementService {
             e.printStackTrace();
         }
 
-		return cname;
-	}
+        return cname;
+    }
 
 
+    public List<Attendee> getAttendeeIDsFromName(String FirstName, String LastName) {
+        Connection connection = ConnectionManager.getConnectionInstance();
 
-	public List<Attendee> getAttendeeIDsFromName(String FirstName, String LastName) {
-		Connection connection = ConnectionManager.getConnectionInstance();
+        PreparedStatement basicGetting = null;
+        String getAttendeeSQL = "SELECT aid,emailaddress FROM Attendee WHERE firstname= '" + FirstName
+                + "' AND lastname= '" + LastName + "';";
+        List<Attendee> attendees = new ArrayList<Attendee>();
+        // An entry in the table is created for any event of any type due to ISA
+        // relationship.
+        try {
+            basicGetting = connection.prepareStatement(getAttendeeSQL);
+            ResultSet rs = basicGetting.executeQuery();
+            while (rs.next()) {
+                UUID aid = UUID.fromString(rs.getString("aid"));
 
-		PreparedStatement basicGetting = null;
-		String getAttendeeSQL = "SELECT aid,emailaddress FROM Attendee WHERE firstname= '" + FirstName
-				+ "' AND lastname= '" + LastName + "';";
-		List<Attendee> attendees = new ArrayList<Attendee>();
-		// An entry in the table is created for any event of any type due to ISA
-		// relationship.
-		try {
-			basicGetting = connection.prepareStatement(getAttendeeSQL);
-			ResultSet rs = basicGetting.executeQuery();
-			while (rs.next()) {
-				UUID aid = UUID.fromString(rs.getString("aid"));
+                String email = rs.getString("emailaddress");
+                Attendee attendee = new Attendee();
+                attendee.setEmail(email);
+                attendee.setFn(FirstName);
+                attendee.setLn(LastName);
+                attendee.setId(aid);
+                attendees.add(attendee);
 
-				String email = rs.getString("emailaddress");
-				Attendee attendee = new Attendee();
-				attendee.setEmail(email);
-				attendee.setFn(FirstName);
-				attendee.setLn(LastName);
-				attendee.setId(aid);
-				attendees.add(attendee);
+            }
 
-			}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+        return attendees;
 
-		return attendees;
+    }
 
-	}
+    public static List<String> getCompanyNames() {
+        Connection connection = ConnectionManager.getConnectionInstance();
 
-	public static List<String> getCompanyNames() {
-		Connection connection = ConnectionManager.getConnectionInstance();
+        PreparedStatement basicGetting = null;
+        String getAttendeeSQL = "SELECT cname FROM Company;";
+        List<String> companies = new ArrayList<>();
+        try {
+            basicGetting = connection.prepareStatement(getAttendeeSQL);
+            ResultSet rs = basicGetting.executeQuery();
+            while (rs.next()) {
+                String email = rs.getString("cname");
+                companies.add(email);
+            }
 
-		PreparedStatement basicGetting = null;
-		String getAttendeeSQL = "SELECT cname FROM Company;";
-		List<String> companies= new ArrayList<>();
-		try {
-			basicGetting = connection.prepareStatement(getAttendeeSQL);
-			ResultSet rs = basicGetting.executeQuery();
-			while (rs.next()) {
-				String email = rs.getString("cname");
-				companies.add(email);
-			}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+        return companies;
+    }
 
-		return companies;
-	}
+    public List<Sponsor> getSponsorIDsFromName(String firstName, String lastName) {
+        Connection connection = ConnectionManager.getConnectionInstance();
 
-	public List<Sponsor> getSponsorIDsFromName(String firstName, String lastName){
-		Connection connection = ConnectionManager.getConnectionInstance();
+        PreparedStatement basicGetting = null;
+        String getAttendeeSQL = "SELECT Attendee.aid,emailaddress,companyid FROM Attendee JOIN Sponsor ON Attendee.aid=Sponsor.aid WHERE firstname= '" + firstName
+                + "' AND lastname= '" + lastName + "';";
+        List<Sponsor> sponsors = new ArrayList<>();
+        try {
+            basicGetting = connection.prepareStatement(getAttendeeSQL);
+            ResultSet rs = basicGetting.executeQuery();
+            while (rs.next()) {
+                UUID aid = UUID.fromString(rs.getString("aid"));
 
-		PreparedStatement basicGetting = null;
-		String getAttendeeSQL = "SELECT Attendee.aid,emailaddress,companyid FROM Attendee JOIN Sponsor ON Attendee.aid=Sponsor.aid WHERE firstname= '" + firstName
-				+ "' AND lastname= '" + lastName + "';";
-		List<Sponsor> sponsors= new ArrayList<>();
-		try {
-			basicGetting = connection.prepareStatement(getAttendeeSQL);
-			ResultSet rs = basicGetting.executeQuery();
-			while (rs.next()) {
-				UUID aid = UUID.fromString(rs.getString("aid"));
+                String email = rs.getString("emailaddress");
+                String companyid = rs.getString("companyid");
+                Sponsor sponsor = new Sponsor();
+                sponsor.setId(aid);
+                sponsor.setEmail(email);
+                sponsor.setFirstName(firstName);
+                sponsor.setLastName(lastName);
+                sponsor.setCompanyName(companyid);
+                sponsors.add(sponsor);
+            }
 
-				String email = rs.getString("emailaddress");
-				Sponsor sponsor = new Sponsor();
-				sponsor.setId(aid);
-				sponsor.setEmail(email);
-				sponsor.setFirstName(firstName);
-				sponsor.setLastName(lastName);
-				sponsors.add(sponsor);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-			}
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+        return sponsors;
 
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+    }
 
-		return sponsors;
+    public List<Delegate> getDelegateIDsFromName(String firstName, String lastName) {
+        Connection connection = ConnectionManager.getConnectionInstance();
 
-	}
+        PreparedStatement basicGetting = null;
+        String getAttendeeSQL = "SELECT Attendee.aid,emailaddress,major,university FROM Attendee JOIN Delegate ON Attendee.aid=Delegate.aid WHERE firstname= '" + firstName
+                + "' AND lastname= '" + lastName + "';";
+        List<Delegate> delegates = new ArrayList<>();
+        try {
+            basicGetting = connection.prepareStatement(getAttendeeSQL);
+            ResultSet rs = basicGetting.executeQuery();
+            while (rs.next()) {
+                UUID aid = UUID.fromString(rs.getString("aid"));
 
-	public List<Delegate> getDelegateIDsFromName(String firstName, String lastName){
-		Connection connection = ConnectionManager.getConnectionInstance();
+                String email = rs.getString("emailaddress");
+                String university = rs.getString("university");
+                String major = rs.getString("major");
+                Delegate delegate = new Delegate();
+                delegate.setId(aid);
+                delegate.setEmail(email);
+                delegate.setFirstName(firstName);
+                delegate.setLastName(lastName);
+                delegate.setUniversity(university);
+                delegate.setMajor(major);
+                delegates.add(delegate);
 
-		PreparedStatement basicGetting = null;
-		String getAttendeeSQL = "SELECT Attendee.aid,emailaddress,major,university FROM Attendee JOIN Delegate ON Attendee.aid=Delegate.aid WHERE firstname= '" + firstName
-				+ "' AND lastname= '" + lastName + "';";
-		List<Delegate> delegates= new ArrayList<>();
-		try {
-			basicGetting = connection.prepareStatement(getAttendeeSQL);
-			ResultSet rs = basicGetting.executeQuery();
-			while (rs.next()) {
-				UUID aid = UUID.fromString(rs.getString("aid"));
+            }
 
-				String email = rs.getString("emailaddress");
-				String university = rs.getString("university");
-				String major = rs.getString("major");
-				Delegate delegate = new Delegate();
-				delegate.setId(aid);
-				delegate.setEmail(email);
-				delegate.setFirstName(firstName);
-				delegate.setLastName(lastName);
-				delegate.setUniversity(university);
-				delegate.setMajor(major);
-				delegates.add(delegate);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-			}
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+        return delegates;
+    }
 
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+    public List<Speaker> getSpeakerIDsFromName(String firstName, String lastName) {
+        Connection connection = ConnectionManager.getConnectionInstance();
 
-		return delegates;
-	}
+        PreparedStatement basicGetting = null;
+        String getAttendeeSQL = "SELECT Attendee.aid,emailaddress FROM Attendee JOIN Speaker ON Attendee.aid=Speaker.aid WHERE firstname= '" + firstName
+                + "' AND lastname= '" + lastName + "';";
+        List<Speaker> speakers = new ArrayList<>();
+        try {
+            basicGetting = connection.prepareStatement(getAttendeeSQL);
+            ResultSet rs = basicGetting.executeQuery();
+            while (rs.next()) {
+                UUID aid = UUID.fromString(rs.getString("aid"));
+                String email = rs.getString("emailaddress");
+                Speaker speaker = new Speaker();
+                speaker.setId(aid);
+                speaker.setEmail(email);
+                speaker.setFirstName(firstName);
+                speaker.setLastName(lastName);
+                speakers.add(speaker);
 
-	public List<Speaker> getSpeakerIDsFromName(String firstName, String lastName){
-		Connection connection = ConnectionManager.getConnectionInstance();
+            }
 
-		PreparedStatement basicGetting = null;
-		String getAttendeeSQL = "SELECT Attendee.aid,emailaddress FROM Attendee JOIN Speaker ON Attendee.aid=Speaker.aid WHERE firstname= '" + firstName
-				+ "' AND lastname= '" + lastName + "';";
-		List<Speaker> speakers= new ArrayList<>();
-		try {
-			basicGetting = connection.prepareStatement(getAttendeeSQL);
-			ResultSet rs = basicGetting.executeQuery();
-			while (rs.next()) {
-				UUID aid = UUID.fromString(rs.getString("aid"));
-				String email = rs.getString("emailaddress");
-				Speaker speaker = new Speaker();
-				speaker.setId(aid);
-				speaker.setEmail(email);
-				speakers.add(speaker);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-			}
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return speakers;
-	}
+        return speakers;
+    }
 
 }
