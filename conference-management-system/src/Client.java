@@ -108,11 +108,13 @@ public class Client {
             String role = sc.nextLine();
             attendeeIdentifier = attnMgmSer.createAttendee(type, firstName, lastName, emailAddress, shirtCut,
                     shirtSize.toUpperCase(), dietaryRestrictions, "", "", "", role, "", "");
+            
         } else if (type.toLowerCase().equals("sponsor")) {
             System.out.println("Please enter company name");
             String companyName = sc.nextLine();
             attendeeIdentifier = attnMgmSer.createAttendee(type, firstName, lastName, emailAddress, shirtCut,
                     shirtSize.toUpperCase(), dietaryRestrictions, "", "", "", "", companyName, "");
+            
         } else {
             System.out.println("Please enter company name");
             String companyName = sc.nextLine();
