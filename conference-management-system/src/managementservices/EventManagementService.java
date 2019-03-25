@@ -1,5 +1,6 @@
-import Model.Location;
-import Model.Speaker;
+package managementservices;
+
+import model.Location;
 
 import java.sql.*;
 import java.util.ArrayList;

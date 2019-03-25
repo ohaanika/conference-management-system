@@ -1,4 +1,9 @@
-import Model.*;
+package gui;
+
+import model.*;
+import managementservices.AttendeeManagementService;
+import managementservices.EventManagementService;
+import managementservices.TaskManagementService;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -24,7 +29,7 @@ public class Client {
             System.out.println("2: Perform hotel room assignments.");
             System.out.println("3: Create an event and schedule it.");
             System.out.println("4: Task operation: Create task/assign task to organizer ");
-            System.out.println("5: Generate the entire conference schedule. ");
+            System.out.println("5: Generate the entire conference schedule.");
             System.out.println("6: Quit program");
 
             // Obtain user input.
@@ -45,13 +50,12 @@ public class Client {
     }
 
     private static void processOption(int option, Scanner sc) {
-        // TODO: Need to catch exception and ensure that the console outputs it.
         if (option == 1) {
             createAttendee(sc);
         } else if (option == 2) {
 
         } else if (option == 3) {
-            processEventCreation(sc);
+            processEventCreationAndScheduling(sc);
         } else if (option == 4) {
             taskOption(sc);
         } else if (option == 5) {
@@ -110,7 +114,7 @@ public class Client {
                     shirtSize.toUpperCase(), dietaryRestrictions, "", "", "", role, "", "");
             
         } else if (type.toLowerCase().equals("sponsor")) {
-            System.out.println("Please enter company name");
+            System.out.println("Please enter company name from these options:");
             String companyName = sc.nextLine();
             attendeeIdentifier = attnMgmSer.createAttendee(type, firstName, lastName, emailAddress, shirtCut,
                     shirtSize.toUpperCase(), dietaryRestrictions, "", "", "", "", companyName, "");
@@ -188,79 +192,62 @@ public class Client {
 
     }
 
-    private static void processEventCreation(Scanner sc) {
+    private static void processEventCreationAndScheduling(Scanner sc) {
         EventManagementService eventManagementService = new EventManagementService();
         AttendeeManagementService attendeeManagementService = new AttendeeManagementService();
-        // 1. Event creation
 
-        // Get user input to retrieve the type of event necessary.
+        // 1. Event creation
+        // Get the type of event and title.
         System.out.println("What is the type of your event, enter one of: Interview, Workshop, Talk or General");
         String type = sc.nextLine();
-
         System.out.println("Please enter a title for your event (max 30 characters)");
         String title = sc.nextLine();
 
-        System.out.println("Please enter a capacity (number of people) for your event (minimum 0)");
-        int size = sc.nextInt();
-        sc.nextLine();
-
-        UUID eventId = null;
+        UUID eventId;
+        int size = 2;
         // If it is an interview:
         if (type.toLowerCase().equals("interview")) {
-            // Obtain the delegateId and sponsorId
-            System.out.println("Please enter the first name of interviewee. ");
-            String delegateFirstName = sc.nextLine();
-            System.out.println("Please enter the last name of interviewee. ");
-            String delegateLastName = sc.nextLine();
-            List<Delegate> delegates =  attendeeManagementService.getDelegateIDsFromName(delegateFirstName,delegateLastName);
-            System.out.println("Please choose the delegate from the following list by entering the number:");
-            for (int i=0;i< delegates.size();i++) {
-                Delegate currDelegate = delegates.get(i);
-                System.out.println( i+": "+currDelegate.getUniversity() +","+currDelegate.getMajor() +"," + currDelegate.getEmail() +"," + currDelegate.getFirstName()+","+currDelegate.getLastName());
+            eventId = createInterview(sc, attendeeManagementService, eventManagementService, title, type);
+            if(eventId==null){
+                System.out.println("The event could not be created");
+                return;
             }
-            int delegateIndex = sc.nextInt();
-            sc.nextLine();
-            System.out.println("Please enter the first name of interviewer.");
-            String sponsorFirstName = sc.nextLine();
-            System.out.println("Please enter the last name of interviewer.");
-            String sponsorLastName = sc.nextLine();
-            System.out.println("Please choose the sponsor from the following list by entering the number: ");
-            List<Sponsor> sponsors = attendeeManagementService.getSponsorIDsFromName(sponsorFirstName,sponsorLastName);
-            for (int i=0;i< sponsors.size();i++) {
-                Sponsor currSponsor = sponsors.get(i);
-                System.out.println( i+": "+ currSponsor.getCompanyName()+ ","+ currSponsor.getEmail() +"," + currSponsor.getFirstName()+","+currSponsor.getLastName());
-            }
-            int sponsorIndex = sc.nextInt();
-            sc.nextLine();
-
-            eventId = eventManagementService.createInterview(title, size, delegates.get(delegateIndex).getId(), sponsors.get(sponsorIndex).getId());
 
             // If it is a talk:
         } else if (type.toLowerCase().equals("talk")) {
-            System.out.println("Please enter the first name of the speaker for this talk. ");
-            String speakerFirstName = sc.nextLine();
-            System.out.println("Please enter the last name of the speaker for this talk. ");
-            String speakerLastName = sc.nextLine();
-            List<Speaker> speakers = attendeeManagementService.getSpeakerIDsFromName(speakerFirstName,speakerLastName);
-            System.out.println("Please choose the speaker from the following list: ");
-            for (int i=0;i< speakers.size();i++) {
-                Speaker currSpeaker = speakers.get(i);
-                System.out.println( i+": "+ currSpeaker.getEmail() +"," + currSpeaker.getFirstName()+","+currSpeaker.getLastName());
-            }
-            int speakerIndex = sc.nextInt();
+            System.out.println("Please enter a capacity (number of people) for your event (minimum 0)");
+            size = sc.nextInt();
             sc.nextLine();
-            eventId = eventManagementService.createTalk(title, size, speakers.get(speakerIndex).getId());
+            eventId = createTalk(sc, attendeeManagementService, eventManagementService, title, type, size);
+            if(eventId==null){
+                System.out.println("The event could not be created");
+                return;
+            }
+
             // If it is a workshop.
         } else if (type.toLowerCase().equals("workshop")) {
-            //TODO: give list of available companies to avoid case sensitive issues.
-            System.out.println("Please enter the company leading the workshop.");
-            String companyName = sc.nextLine();
-            eventId = eventManagementService.createWorkshop(title, size, companyName);
+            System.out.println("Please enter a capacity (number of people) for your event (minimum 0)");
+            size = sc.nextInt();
+            sc.nextLine();
+            eventId = createWorkshop(sc, attendeeManagementService, eventManagementService, title, type, size);
+            if(eventId==null){
+                System.out.println("The event could not be created");
+                return;
+            }
             // Otherwise it is a general event.
         } else if (type.toLowerCase().equals("general")) {
+            System.out.println("Please enter a capacity (number of people) for your event");
+            size = sc.nextInt();
+            sc.nextLine();
             eventId = eventManagementService.createEvent(title, size);
+            if(eventId==null){
+                System.out.println("The event could not be created");
+                return;
+            }
+
+            // Invalid option
         } else {
-            System.out.println("That was not a valid option.");
+            System.out.println("That was not a valid option. Please try again.");
             return;
         }
         System.out.println("The event was successfully created.");
@@ -301,6 +288,10 @@ public class Client {
             // Allow user to pick an available location
             ArrayList<Location> availableLocations = eventManagementService.findAvailableLocationForEvent(dateSQL,
                     startTimeSQL, endTimeSQL, size);
+            if(availableLocations.size()==0){
+                System.out.println("Sorry there are no available locations for this capacity. We cannot schedule the event.");
+                return;
+            }
             boolean locationChosen = false;
             int locationIndex = 0;
             while (!locationChosen) {
@@ -322,5 +313,124 @@ public class Client {
                     endTimeSQL);
             System.out.println("The event was successfully scheduled.");
         }
+    }
+
+    private static UUID createTalk(Scanner sc, AttendeeManagementService attendeeManagementService, EventManagementService eventManagementService, String title, String type, int size) {
+        System.out.println("Please enter the first name of the speaker for this talk. ");
+        String speakerFirstName = sc.nextLine();
+
+        System.out.println("Please enter the last name of the speaker for this talk. ");
+        String speakerLastName = sc.nextLine();
+
+        List<Speaker> speakers = attendeeManagementService.getSpeakerIDsFromName(speakerFirstName, speakerLastName);
+        if(speakers.size()==0){
+            System.out.println("Sorry there are no speakers with that name. Please create one using option 1");
+            return null;
+        }
+        System.out.println("Please choose the speaker from the following list: ");
+        boolean speakerNotChosen = true;
+        int speakerIndex=0;
+        while (speakerNotChosen) {
+            for (int i = 0; i < speakers.size(); i++) {
+                Speaker currSpeaker = speakers.get(i);
+                System.out.println(i + ": " + currSpeaker.getEmail() + "," + currSpeaker.getFirstName() + "," + currSpeaker.getLastName());
+            }
+            speakerIndex = sc.nextInt();
+            sc.nextLine();
+            if (speakerIndex >= speakers.size()) {
+                System.out.println("Not a valid choice.");
+                continue;
+            }
+            speakerNotChosen = false;
+        }
+
+        UUID eventId = eventManagementService.createTalk(title, size, speakers.get(speakerIndex).getId());
+        return eventId;
+    }
+
+    private static UUID createInterview(Scanner sc, AttendeeManagementService attendeeManagementService, EventManagementService eventManagementService, String title, String type) {
+        // Obtain the delegateId and sponsorId
+        System.out.println("Please enter the first name of interviewee. ");
+        String delegateFirstName = sc.nextLine();
+
+        System.out.println("Please enter the last name of interviewee. ");
+        String delegateLastName = sc.nextLine();
+
+        List<Delegate> delegates = attendeeManagementService.getDelegateIDsFromName(delegateFirstName, delegateLastName);
+        if(delegates.size()==0){
+            System.out.println("Sorry there are no delegates with that name. Please create one using option 1");
+            return null;
+        }
+
+        System.out.println("Please choose the delegate from the following list by entering the number:");
+        boolean delegateNotChosen = true;
+        int delegateIndex=0;
+        while (delegateNotChosen) {
+
+            for (int i = 0; i < delegates.size(); i++) {
+                Delegate currDelegate = delegates.get(i);
+                System.out.println(i + ": " + currDelegate.getUniversity() + "," + currDelegate.getMajor() + "," + currDelegate.getEmail() + "," + currDelegate.getFirstName() + "," + currDelegate.getLastName());
+            }
+            delegateIndex = sc.nextInt();
+            sc.nextLine();
+            if (delegateIndex >= delegates.size()) {
+                System.out.println("Not a valid choice.");
+                continue;
+            }
+            delegateNotChosen = false;
+        }
+
+        System.out.println("Please enter the first name of interviewer.");
+        String sponsorFirstName = sc.nextLine();
+
+        System.out.println("Please enter the last name of interviewer.");
+        String sponsorLastName = sc.nextLine();
+
+        List<Sponsor> sponsors = attendeeManagementService.getSponsorIDsFromName(sponsorFirstName, sponsorLastName);
+        if(sponsors.size()==0){
+            System.out.println("Sorry there are no sponsors with that name. Please create one using option 1");
+            return null;
+        }
+        System.out.println("Please choose the sponsor from the following list by entering the number: ");
+        boolean sponsorNotChosen = true;
+        int sponsorIndex=0;
+        while (sponsorNotChosen) {
+            for (int i = 0; i < sponsors.size(); i++) {
+                Sponsor currSponsor = sponsors.get(i);
+                System.out.println(i + ": " + currSponsor.getCompanyName() + "," + currSponsor.getEmail() + "," + currSponsor.getFirstName() + "," + currSponsor.getLastName());
+            }
+            sponsorIndex = sc.nextInt();
+            sc.nextLine();
+            if (sponsorIndex >= sponsors.size()) {
+                System.out.println("Not a valid choice.");
+                continue;
+            }
+            sponsorNotChosen = false;
+        }
+
+        UUID eventId = eventManagementService.createInterview(title, 2, delegates.get(delegateIndex).getId(), sponsors.get(sponsorIndex).getId());
+
+        return eventId;
+    }
+
+    private static UUID createWorkshop(Scanner sc, AttendeeManagementService attendeeManagementService, EventManagementService eventManagementService, String title, String type, int size) {
+        List<String> companies = attendeeManagementService.getCompanyNames();
+        System.out.println("Please enter the company leading the workshop from the following list by choosing the number.");
+        boolean validCompanyNotChosen=true;
+        int companyIndex=0;
+        while (validCompanyNotChosen){
+            for (int i = 0; i < companies.size(); i++) {
+                System.out.println(i + ": " + companies.get(i));
+            }
+            companyIndex = sc.nextInt();
+            sc.nextLine();
+            if(companyIndex>=companies.size()){
+                System.out.println("Not a valid choice.");
+                continue;
+            }
+            validCompanyNotChosen=false;
+        }
+        UUID eventId = eventManagementService.createWorkshop(title, size, companies.get(companyIndex));
+        return eventId;
     }
 }

@@ -1,6 +1,6 @@
-/**
+package managementservices; /**
  * Class to connect to database.
- * TODO: Could simplify to not recreate the ConnectionManager everytime.
+ * TODO: Could simplify to not recreate the managementservices.ConnectionManager everytime.
  * TODO: Handle the SQL issues.
  */
 
