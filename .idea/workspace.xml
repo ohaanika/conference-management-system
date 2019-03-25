@@ -13,19 +13,19 @@
   <component name="FileEditorManager">
     <leaf>
       <file leaf-file-name="Client.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/conference-management-system/src/Client.java">
+        <entry file="file://$PROJECT_DIR$/conference-management-system/src/gui/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1338">
-              <caret line="324" lean-forward="true" selection-start-line="324" selection-end-line="324" />
+            <state relative-caret-position="-1089">
+              <caret line="279" column="61" selection-start-line="279" selection-start-column="61" selection-end-line="279" selection-end-column="61" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EventManagementService.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/conference-management-system/src/EventManagementService.java">
+      <file leaf-file-name="EventManagementService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/conference-management-system/src/managementservices/EventManagementService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="889">
-              <caret line="138" column="13" lean-forward="true" selection-start-line="138" selection-start-column="13" selection-end-line="138" selection-end-column="13" />
+            <state relative-caret-position="109">
+              <caret line="87" column="19" lean-forward="true" selection-start-line="87" selection-start-column="19" selection-end-line="87" selection-end-column="19" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -42,11 +42,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AttendeeManagementService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/conference-management-system/src/AttendeeManagementService.java">
+      <file leaf-file-name="AttendeeManagementService.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/conference-management-system/src/managementservices/AttendeeManagementService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="290" selection-start-line="290" selection-end-line="290" />
+            <state relative-caret-position="225">
+              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -171,9 +171,10 @@
         <option value="$PROJECT_DIR$/conference-management-system/src/Model/Sponsor.java" />
         <option value="$PROJECT_DIR$/conference-management-system/src/Model/Delegate.java" />
         <option value="$PROJECT_DIR$/conference-management-system/src/Model/Speaker.java" />
-        <option value="$PROJECT_DIR$/conference-management-system/src/AttendeeManagementService.java" />
         <option value="$PROJECT_DIR$/conference-management-system/src/EventManagementService.java" />
+        <option value="$PROJECT_DIR$/conference-management-system/src/AttendeeManagementService.java" />
         <option value="$PROJECT_DIR$/conference-management-system/src/Client.java" />
+        <option value="$PROJECT_DIR$/conference-management-system/src/managementservices/AttendeeManagementService.java" />
       </list>
     </option>
   </component>
@@ -212,12 +213,6 @@
               <item name="conference-management-system" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="conference-management-system" type="b2602c69:ProjectViewProjectNode" />
-              <item name="conference-management-system" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Model" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -248,6 +243,8 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="gui" />
+      <recent name="managementservices" />
       <recent name="Model" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
@@ -268,7 +265,7 @@
   </component>
   <component name="RunManager">
     <configuration name="Unnamed" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="Client" />
+      <option name="MAIN_CLASS_NAME" value="gui.Client" />
       <module name="api" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
     </configuration>
@@ -333,11 +330,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26483000" />
+    <option name="totallyTimeSpent" value="29586000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="FindBugs-IDEA" order="7" />
@@ -357,12 +353,13 @@
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32965517" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32965517" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="CheckStyle" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.28551725" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19466881" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26979" />
       <window_info anchor="bottom" id="SonarLint" order="7" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32965517" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -390,7 +387,6 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info id="UI Designer" order="2" />
-      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="SonarLint" order="7" />
       <window_info anchor="bottom" id="Messages" order="7" weight="0.32965517" />
@@ -409,13 +405,13 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/conference-management-system/src/AttendeeManagementService.java</url>
-          <line>219</line>
+          <url>file://$PROJECT_DIR$/conference-management-system/src/managementservices/AttendeeManagementService.java</url>
+          <line>247</line>
           <properties />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/conference-management-system/src/EventManagementService.java</url>
+          <url>file://$PROJECT_DIR$/conference-management-system/src/managementservices/EventManagementService.java</url>
           <line>130</line>
           <properties />
           <option name="timeStamp" value="3" />
@@ -425,7 +421,7 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/conference-management-system/src/ConnectionManager.java">
+    <entry file="file://$PROJECT_DIR$/conference-management-system/src/managementservices/ConnectionManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
@@ -439,7 +435,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conference-management-system/src/Client.java">
+    <entry file="file://$PROJECT_DIR$/conference-management-system/src/gui/Client.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="645">
           <caret line="43" column="33" lean-forward="true" selection-start-line="43" selection-start-column="33" selection-end-line="43" selection-end-column="33" />
@@ -453,7 +449,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conference-management-system/src/ConnectionManager.java">
+    <entry file="file://$PROJECT_DIR$/conference-management-system/src/managementservices/ConnectionManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="431">
           <caret line="42" column="17" lean-forward="true" selection-start-line="42" selection-start-column="17" selection-end-line="42" selection-end-column="17" />
@@ -485,14 +481,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conference-management-system/src/Client.java">
+    <entry file="file://$PROJECT_DIR$/conference-management-system/src/gui/Client.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-214">
           <caret line="110" column="83" selection-start-line="110" selection-start-column="83" selection-end-line="110" selection-end-column="83" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conference-management-system/src/AttendeeManagementService.java">
+    <entry file="file://$PROJECT_DIR$/conference-management-system/src/managementservices/AttendeeManagementService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="379">
           <caret line="43" column="1" lean-forward="true" selection-start-line="43" selection-start-column="1" selection-end-line="43" selection-end-column="1" />
@@ -502,14 +498,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conference-management-system/src/TaskManagementService.java">
+    <entry file="file://$PROJECT_DIR$/conference-management-system/src/managementservices/TaskManagementService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="344">
           <caret line="55" column="38" lean-forward="true" selection-start-line="55" selection-start-column="38" selection-end-line="55" selection-end-column="38" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conference-management-system/src/EventManagementService.java">
+    <entry file="file://$PROJECT_DIR$/conference-management-system/src/managementservices/EventManagementService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2483">
           <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
@@ -519,7 +515,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conference-management-system/src/ConnectionManager.java">
+    <entry file="file://$PROJECT_DIR$/conference-management-system/src/managementservices/ConnectionManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
@@ -533,7 +529,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conference-management-system/src/Client.java">
+    <entry file="file://$PROJECT_DIR$/conference-management-system/src/gui/Client.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="645">
           <caret line="43" column="33" lean-forward="true" selection-start-line="43" selection-start-column="33" selection-end-line="43" selection-end-column="33" />
@@ -547,7 +543,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conference-management-system/src/ConnectionManager.java">
+    <entry file="file://$PROJECT_DIR$/conference-management-system/src/managementservices/ConnectionManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="431">
           <caret line="42" column="17" lean-forward="true" selection-start-line="42" selection-start-column="17" selection-end-line="42" selection-end-column="17" />
@@ -576,13 +572,6 @@
             <element signature="e#325#326#0" expanded="true" />
             <element signature="e#360#361#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/conference-management-system/src/Model/Attendee.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" selection-start-line="5" selection-end-line="8" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -675,27 +664,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conference-management-system/src/AttendeeManagementService.java">
+    <entry file="file://$PROJECT_DIR$/conference-management-system/src/Model/Attendee.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="290" selection-start-line="290" selection-end-line="290" />
+        <state relative-caret-position="75">
+          <caret line="5" selection-start-line="5" selection-end-line="8" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conference-management-system/src/managementservices/EventManagementService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="87" column="19" lean-forward="true" selection-start-line="87" selection-start-column="19" selection-end-line="87" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conference-management-system/src/Client.java">
+    <entry file="file://$PROJECT_DIR$/conference-management-system/src/gui/Client.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1338">
-          <caret line="324" lean-forward="true" selection-start-line="324" selection-end-line="324" />
+        <state relative-caret-position="-1089">
+          <caret line="279" column="61" selection-start-line="279" selection-start-column="61" selection-end-line="279" selection-end-column="61" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conference-management-system/src/EventManagementService.java">
+    <entry file="file://$PROJECT_DIR$/conference-management-system/src/managementservices/AttendeeManagementService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="889">
-          <caret line="138" column="13" lean-forward="true" selection-start-line="138" selection-start-column="13" selection-end-line="138" selection-end-column="13" />
+        <state relative-caret-position="225">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

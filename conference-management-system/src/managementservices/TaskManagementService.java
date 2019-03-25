@@ -1,11 +1,11 @@
+package managementservices;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.UUID;
-
-import Model.Location;
 
 public class TaskManagementService {
 	

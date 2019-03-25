@@ -1,3 +1,5 @@
+package managementservices;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -5,10 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import Model.Attendee;
-import Model.Delegate;
-import Model.Speaker;
-import Model.Sponsor;
+import model.Attendee;
+import model.Delegate;
+import model.Speaker;
+import model.Sponsor;
 
 public class AttendeeManagementService {
 
@@ -23,23 +25,23 @@ public class AttendeeManagementService {
 	 * @param shirtSize
 	 * @param dietaryRestrictions
 	 */
-	
+
 	// An entry in the table is created for any attendee of any type due to ISA
 			// relationship.
 
 	public String createAttendee(String type, String firstName, String lastName, String emailAddress, String shirtCut,
 			String shirtSize, String dietaryRestrictions, String major, String university, String province, String role,
 			String cname, String tier) {
-		
+
 		UUID aid = UUID.randomUUID();
-		
+
 		Connection connection = ConnectionManager.getConnectionInstance();
-		
+
 		PreparedStatement attendee = null;
-		
-        String createAttendeeSQL = "INSERT INTO attendee VALUES('" + aid.toString() + "','" + firstName + "','" + lastName + "','" + emailAddress + "','" 
+
+        String createAttendeeSQL = "INSERT INTO attendee VALUES('" + aid.toString() + "','" + firstName + "','" + lastName + "','" + emailAddress + "','"
 		+ shirtCut + "','" + shirtSize + "','" + dietaryRestrictions +"');";
-	
+
         try {
             attendee = connection.prepareStatement(createAttendeeSQL);
             attendee.execute();
@@ -53,32 +55,32 @@ public class AttendeeManagementService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-		
+
         if(type.toLowerCase().equals("delegate")) {
         	return createDelegate(aid, major, university, province);
         }
-        
+
         else if(type.toLowerCase().equals("organizer")) {
         	return createOrganizer(aid, role);
         }
-        
+
         else if (type.toLowerCase().equals("sponsor")) {
         	return createSponsor(aid, cname);
         }
-        
+
         else {
         	return createCompany(cname, tier);
         }
-        
+
 	}
-	
+
 	private String createDelegate (UUID aid, String major, String university, String province) {
 		Connection connection = ConnectionManager.getConnectionInstance();
-		
+
 		PreparedStatement delegate = null;
-		
+
 		String createDelegateSQL ="INSERT INTO delegate VALUES('" + aid.toString() + "','" + major + "','" + university + "','" + province + "');";
-		
+
 		try {
             delegate = connection.prepareStatement(createDelegateSQL);
             delegate.execute();
@@ -92,18 +94,18 @@ public class AttendeeManagementService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-		
+
         return aid.toString();
-		
+
 	}
-	
+
 	private String createOrganizer (UUID aid, String role) {
 		Connection connection = ConnectionManager.getConnectionInstance();
-		
+
 		PreparedStatement organizer = null;
-		
+
 		String createOrganizerSQL ="INSERT INTO organizer VALUES('" + aid.toString() + "','" + role + "');";
-		
+
 		try {
             organizer = connection.prepareStatement(createOrganizerSQL);
             organizer.execute();
@@ -117,19 +119,19 @@ public class AttendeeManagementService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-		
+
         return aid.toString();
-		
+
 	}
-	
+
 	private String createSponsor (UUID aid, String cname) {
-		
+
 		Connection connection = ConnectionManager.getConnectionInstance();
-		
+
 		PreparedStatement sponsor = null;
-		
+
 		String createSponsorSQL ="INSERT INTO sponsor VALUES('" + aid + "','" + cname + "');";
-		
+
 		try {
             sponsor = connection.prepareStatement(createSponsorSQL);
             sponsor.execute();
@@ -143,17 +145,17 @@ public class AttendeeManagementService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-		
+
         return aid.toString();
 }
-	
+
 	private String createCompany (String cname, String tier) {
 		Connection connection = ConnectionManager.getConnectionInstance();
-		
+
 		PreparedStatement company = null;
-		
+
 		String createCompanySQL ="INSERT INTO company VALUES('" + cname + "','" + tier + "');";
-		
+
 		try {
             company = connection.prepareStatement(createCompanySQL);
             company.execute();
@@ -167,11 +169,11 @@ public class AttendeeManagementService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-		
+
 		return cname;
 	}
-	
-	
+
+
 
 	public List<Attendee> getAttendeeIDsFromName(String FirstName, String LastName) {
 		Connection connection = ConnectionManager.getConnectionInstance();
@@ -210,6 +212,33 @@ public class AttendeeManagementService {
 
 		return attendees;
 
+	}
+
+	public static List<String> getCompanyNames() {
+		Connection connection = ConnectionManager.getConnectionInstance();
+
+		PreparedStatement basicGetting = null;
+		String getAttendeeSQL = "SELECT cname FROM Company;";
+		List<String> companies= new ArrayList<>();
+		try {
+			basicGetting = connection.prepareStatement(getAttendeeSQL);
+			ResultSet rs = basicGetting.executeQuery();
+			while (rs.next()) {
+				String email = rs.getString("cname");
+				companies.add(email);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return companies;
 	}
 
 	public List<Sponsor> getSponsorIDsFromName(String firstName, String lastName){
