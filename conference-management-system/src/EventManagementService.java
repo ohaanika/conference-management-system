@@ -1,4 +1,5 @@
 import Model.Location;
+import Model.Speaker;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -50,14 +51,14 @@ public class EventManagementService {
      *
      * @return the event id of the newly created event.
      */
-    public UUID createInterview(String title, int size, String delegateId, String sponsorId) {
+    public UUID createInterview(String title, int size, UUID delegateId, UUID sponsorId) {
         // First create the event.
         UUID eventId = createEvent(title, size);
         // Now create the interview.
         Connection connection = ConnectionManager.getConnectionInstance();
 
-        PreparedStatement basicEvent = null;
-        String createEventSQL = "INSERT INTO Interview(eid,delegateId,sponsorId) VALUES('" + eventId.toString() + "','" + delegateId + "','" + sponsorId + "');";
+        PreparedStatement basicEvent;
+        String createEventSQL = "INSERT INTO Interview(eid,delegateId,sponsorId) VALUES('" + eventId.toString() + "','" + delegateId.toString() + "','" + sponsorId.toString() + "');";
         try {
             basicEvent = connection.prepareStatement(createEventSQL);
             basicEvent.execute();
@@ -83,14 +84,14 @@ public class EventManagementService {
      * @param speakerId
      * @return
      */
-    public UUID createTalk(String title, int size, String speakerId) {
+    public UUID createTalk(String title, int size, UUID speakerId) {
         // First create the event.
         UUID eventId = createEvent(title, size);
         // Now create the interview.
         Connection connection = ConnectionManager.getConnectionInstance();
 
         PreparedStatement basicEvent = null;
-        String createEventSQL = "INSERT INTO Talk(eid,speakerId) VALUES('" + eventId.toString() + "','" + speakerId + "');";
+        String createEventSQL = "INSERT INTO Talk(eid,speakerId) VALUES('" + eventId.toString() + "','" + speakerId.toString() + "');";
         try {
             basicEvent = connection.prepareStatement(createEventSQL);
             basicEvent.execute();
@@ -123,7 +124,7 @@ public class EventManagementService {
         Connection connection = ConnectionManager.getConnectionInstance();
         PreparedStatement basicEvent = null;
         // The SQL for an event with a title.
-        String createEventSQL = "INSERT INTO Workshop(eid,,sponsorId) VALUES('" + eventId.toString() + "','" + companyId + "');";
+        String createEventSQL = "INSERT INTO Workshop(eid,companyid) VALUES('" + eventId.toString() + "','" + companyId + "');";
 
         // An entry in the table is created for any event of any type due to ISA relationship.
         try {
