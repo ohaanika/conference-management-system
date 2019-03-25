@@ -29,8 +29,8 @@ public class EventManagementService {
             basicEvent.execute();
 
         } catch (SQLException e) {
+            eventId=null;
             System.out.println("Sorry the event could not be created.");
-            e.printStackTrace();
         }
 
         try {
@@ -38,7 +38,6 @@ public class EventManagementService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return eventId;
     }
 
@@ -55,6 +54,9 @@ public class EventManagementService {
     public UUID createInterview(String title, int size, UUID delegateId, UUID sponsorId) {
         // First create the event.
         UUID eventId = createEvent(title, size);
+        if(eventId==null){
+            return null;
+        }
         // Now create the interview.
         Connection connection = ConnectionManager.getConnectionInstance();
 
@@ -88,6 +90,9 @@ public class EventManagementService {
     public UUID createTalk(String title, int size, UUID speakerId) {
         // First create the event.
         UUID eventId = createEvent(title, size);
+        if(eventId==null){
+            return null;
+        }
         // Now create the interview.
         Connection connection = ConnectionManager.getConnectionInstance();
 
@@ -121,6 +126,9 @@ public class EventManagementService {
     public UUID createWorkshop(String title, int size, String companyId) {
         // First create the event.
         UUID eventId = createEvent(title, size);
+        if(eventId==null){
+            return null;
+        }
         // Now create the workshop.
         Connection connection = ConnectionManager.getConnectionInstance();
         PreparedStatement basicEvent = null;

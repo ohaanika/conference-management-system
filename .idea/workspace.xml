@@ -11,12 +11,23 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="Client.java" pinned="false" current-in-tab="true">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="Client.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/conference-management-system/src/gui/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
-              <caret line="185" column="66" lean-forward="true" selection-start-line="185" selection-start-column="66" selection-end-line="185" selection-end-column="66" />
+            <state relative-caret-position="157">
+              <caret line="49" column="5" lean-forward="true" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Client.class" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/conference-management-system/bin/gui/Client.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="e#0#18856#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -24,51 +35,8 @@
       <file leaf-file-name="AttendeeManagementService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/conference-management-system/src/managementservices/AttendeeManagementService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="334" column="13" selection-start-line="334" selection-start-column="13" selection-end-line="334" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Sponsor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/conference-management-system/src/model/Sponsor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="31" column="25" lean-forward="true" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
-              <folding>
-                <element signature="e#226#227#0" expanded="true" />
-                <element signature="e#251#252#0" expanded="true" />
-                <element signature="e#285#286#0" expanded="true" />
-                <element signature="e#313#314#0" expanded="true" />
-                <element signature="e#345#346#0" expanded="true" />
-                <element signature="e#373#374#0" expanded="true" />
-                <element signature="e#415#416#0" expanded="true" />
-                <element signature="e#449#450#0" expanded="true" />
-                <element signature="e#487#488#0" expanded="true" />
-                <element signature="e#521#522#0" expanded="true" />
-                <element signature="e#575#576#0" expanded="true" />
-                <element signature="e#621#622#0" expanded="true" />
-                <element signature="e#657#658#0" expanded="true" />
-                <element signature="e#689#690#0" expanded="true" />
-                <element signature="e#739#740#0" expanded="true" />
-                <element signature="e#781#782#0" expanded="true" />
-                <element signature="e#816#817#0" expanded="true" />
-                <element signature="e#847#848#0" expanded="true" />
-                <element signature="e#895#896#0" expanded="true" />
-                <element signature="e#935#936#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EventManagementService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/conference-management-system/src/managementservices/EventManagementService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="98">
-              <caret line="87" column="19" lean-forward="true" selection-start-line="87" selection-start-column="19" selection-end-line="87" selection-end-column="19" />
+            <state relative-caret-position="4890">
+              <caret line="337" column="32" selection-start-line="337" selection-start-column="32" selection-end-line="337" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -101,8 +69,8 @@
         <option value="$PROJECT_DIR$/conference-management-system/src/EventManagementService.java" />
         <option value="$PROJECT_DIR$/conference-management-system/src/AttendeeManagementService.java" />
         <option value="$PROJECT_DIR$/conference-management-system/src/Client.java" />
-        <option value="$PROJECT_DIR$/conference-management-system/src/managementservices/EventManagementService.java" />
         <option value="$PROJECT_DIR$/conference-management-system/src/managementservices/AttendeeManagementService.java" />
+        <option value="$PROJECT_DIR$/conference-management-system/src/managementservices/EventManagementService.java" />
         <option value="$PROJECT_DIR$/conference-management-system/src/gui/Client.java" />
       </list>
     </option>
@@ -120,15 +88,15 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="y" value="23" />
     <option name="width" value="1280" />
-    <option name="height" value="725" />
+    <option name="height" value="800" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
@@ -140,13 +108,35 @@
             <path>
               <item name="conference-management-system" type="b2602c69:ProjectViewProjectNode" />
               <item name="conference-management-system" type="462c0819:PsiDirectoryNode" />
+              <item name="bin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="conference-management-system" type="b2602c69:ProjectViewProjectNode" />
+              <item name="conference-management-system" type="462c0819:PsiDirectoryNode" />
+              <item name="bin" type="462c0819:PsiDirectoryNode" />
+              <item name="gui" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="conference-management-system" type="b2602c69:ProjectViewProjectNode" />
+              <item name="conference-management-system" type="462c0819:PsiDirectoryNode" />
+              <item name="bin" type="462c0819:PsiDirectoryNode" />
+              <item name="managementservices" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="conference-management-system" type="b2602c69:ProjectViewProjectNode" />
+              <item name="conference-management-system" type="462c0819:PsiDirectoryNode" />
+              <item name="bin" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="conference-management-system" type="b2602c69:ProjectViewProjectNode" />
+              <item name="conference-management-system" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope">
         <subPane subId="Project Files">
           <expand>
@@ -255,15 +245,15 @@
       <workItem from="1553187523490" duration="16081000" />
       <workItem from="1553223409905" duration="232000" />
       <workItem from="1553263871050" duration="3465000" />
+      <workItem from="1553551753938" duration="219000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30666000" />
+    <option name="totallyTimeSpent" value="32223000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="FindBugs-IDEA" order="7" />
@@ -279,50 +269,24 @@
       <window_info id="UI Designer" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.32961783" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32965517" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32965517" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="CheckStyle" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.28551725" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26979" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.28551725" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19789983" />
       <window_info anchor="bottom" id="SonarLint" order="7" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32965517" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32965517" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19466881" />
-      <window_info anchor="bottom" id="CheckStyle" order="7" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.28551725" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Palette&#9;" order="3" />
-      <window_info anchor="bottom" id="SonarQube" order="7" />
-      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="FindBugs-IDEA" order="7" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info id="Image Layers" order="2" />
-      <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="right" id="Database" order="3" />
-      <window_info id="Capture Tool" order="2" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info id="UI Designer" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="SonarLint" order="7" />
       <window_info anchor="bottom" id="Messages" order="7" weight="0.32965517" />
-      <window_info anchor="right" id="Maven Projects" order="3" weight="0.32956383" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info id="Designer" order="2" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32965517" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -335,12 +299,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/conference-management-system/src/managementservices/AttendeeManagementService.java</url>
-          <line>247</line>
-          <properties />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/conference-management-system/src/managementservices/EventManagementService.java</url>
           <line>130</line>
           <properties />
@@ -351,6 +309,23 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/conference-management-system/src/gui/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="35" column="38" lean-forward="true" selection-start-line="35" selection-start-column="38" selection-end-line="35" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conference-management-system/src/managementservices/AttendeeManagementService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5055">
+          <caret line="337" column="32" selection-start-line="337" selection-start-column="32" selection-end-line="337" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/conference-management-system/src/managementservices/ConnectionManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -574,8 +549,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/conference-management-system/src/managementservices/EventManagementService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="87" column="19" lean-forward="true" selection-start-line="87" selection-start-column="19" selection-end-line="87" selection-end-column="19" />
+        <state relative-caret-position="352">
+          <caret line="131" column="35" lean-forward="true" selection-start-line="131" selection-start-column="35" selection-end-line="131" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -584,7 +559,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/conference-management-system/src/model/Sponsor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
+        <state relative-caret-position="465">
           <caret line="31" column="25" lean-forward="true" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
           <folding>
             <element signature="e#226#227#0" expanded="true" />
@@ -613,8 +588,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/conference-management-system/src/managementservices/AttendeeManagementService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="334" column="13" selection-start-line="334" selection-start-column="13" selection-end-line="334" selection-end-column="13" />
+        <state relative-caret-position="4890">
+          <caret line="337" column="32" selection-start-line="337" selection-start-column="32" selection-end-line="337" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -623,8 +598,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/conference-management-system/src/gui/Client.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="185" column="66" lean-forward="true" selection-start-line="185" selection-start-column="66" selection-end-line="185" selection-end-column="66" />
+        <state relative-caret-position="157">
+          <caret line="49" column="5" lean-forward="true" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conference-management-system/bin/gui/Client.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#18856#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
