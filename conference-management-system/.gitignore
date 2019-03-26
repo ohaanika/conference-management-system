@@ -4,4 +4,4 @@
 .idea
 /bin1/
 *.class
-.recommenders
+.recommenders/
