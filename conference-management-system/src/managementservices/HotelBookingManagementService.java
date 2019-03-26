@@ -48,9 +48,22 @@ public class HotelBookingManagementService {
         return availableHotelRooms;
     }
 
-    public void assignRoom(String aID, int size) {
-    	
-
+    public void assignRoom(UUID hID, UUID aID) {
+    	Connection connection = ConnectionManager.getConnectionInstance();
+		PreparedStatement basicRoom;
+		// The SQL for assigning specified hotel room to specified attendee
+		String findRoomsSQL = "INSERT INTO AttendeeHotelBookings VALUES ('" + aID + "','" + hID + "');";
+		// Assigning specified hotel room to specified attendee
+		try {
+			basicRoom = connection.prepareStatement(findRoomsSQL);
+            basicRoom.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-
 }

@@ -160,22 +160,22 @@ public class Client {
     	String[] attendeeFirstNames = new String[numAttendees];
     	String[] attendeeLastNames = new String[numAttendees];
     	for (int i = 1; i <= numAttendees; i++) {
-    		System.out.println("Attendee " + i + "first name:");
+    		System.out.println("Attendee " + i + " first name:");
     		attendeeFirstNames[i-1] = sc.nextLine();
-    		System.out.println("Attendee " + i + "last name:");
+    		System.out.println("Attendee " + i + " last name:");
     		attendeeLastNames[i-1] = sc.nextLine();
     		List<Attendee> attendees = atman.getAttendeeIDsFromName(attendeeFirstNames[i-1], attendeeLastNames[i-1]);
             while(attendees.size() == 0){
-                System.out.println("Sorry there are no attendees with that name. Please create one using option 1 or re-enter an existing name.");
-                System.out.println("Attendee " + i + "first name:");
+                System.out.println("ERROR: Sorry there are no attendees with that name. Please create one using option 1 or re-enter an existing name.");
+                System.out.println("Attendee " + i + " first name:");
         		attendeeFirstNames[i-1] = sc.nextLine();
-        		System.out.println("Attendee " + i + "last name:");
+        		System.out.println("Attendee " + i + " last name:");
         		attendeeLastNames[i-1] = sc.nextLine();
         		attendees = atman.getAttendeeIDsFromName(attendeeFirstNames[i-1], attendeeLastNames[i-1]);
             }
             System.out.println("Please choose an attendee from the following list: ");
             boolean attendeeNotChosen = true;
-            int attendeeIndex=0;
+            int attendeeIndex = 0;
             while (attendeeNotChosen) {
                 for (int j = 0; j < attendees.size(); j++) {
                     Attendee currAttendee = attendees.get(j);
@@ -184,18 +184,14 @@ public class Client {
                 attendeeIndex = sc.nextInt();
                 sc.nextLine();
                 if (attendeeIndex >= attendees.size()) {
-                    System.out.println("Not a valid choice.");
+                    System.out.println("ERROR: Not a valid choice. Please re-select.");
                     continue;
                 }
                 attendeeNotChosen = false;
             }          
-            
-            
-            
-    	}
-    	
-    	// FINISH EDITING
-    	
+            homan.assignRoom(homan.findHotelRoomByRoomNumber(Integer.parseInt(roomNumber), availableRooms).getId(), attendees.get(attendeeIndex).getId());          
+            System.out.println("Assigned hotel booking for " + attendees.get(attendeeIndex).getFn() + " " + attendees.get(attendeeIndex).getLn() + " successfully!");
+    	}	
     }
 
     private static void taskOption(Scanner sc) {
