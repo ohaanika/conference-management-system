@@ -4,10 +4,15 @@ import model.*;
 import managementservices.AttendeeManagementService;
 import managementservices.EventManagementService;
 import managementservices.TaskManagementService;
+import managementservices.HotelBookingManagementService;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
+import java.util.UUID;
 
 /**
  * The main GUI that allows users to do the following: Choose from one of the
@@ -26,7 +31,7 @@ public class Client {
             System.out.println("2: Perform hotel room assignments.");
             System.out.println("3: Create an event and schedule it.");
             System.out.println("4: Task operation: Create task/assign task to organizer ");
-            System.out.println("5: Generate the schedule for one room.");
+            System.out.println("5: Generate the entire conference schedule.");
             System.out.println("6: Quit program");
 
             // Obtain user input.
@@ -50,65 +55,14 @@ public class Client {
         if (option == 1) {
             createAttendee(sc);
         } else if (option == 2) {
-
+        	processHotelBooking(sc);
         } else if (option == 3) {
-            createEventAndSchedule(sc);
+            processEventCreationAndScheduling(sc);
         } else if (option == 4) {
             taskOption(sc);
         } else if (option == 5) {
-            generateScheduleForLocation(sc);
-        }
-    }
 
-    private static void generateScheduleForLocation(Scanner sc) {
-        EventManagementService eventManagementService = new EventManagementService();
-        System.out.println("Please select one of the following locations to view the schedule:");
-        ArrayList<Location> locations = eventManagementService.getLocations();
-        if(locations.size()==0){
-            System.out.println("There are no locations in the system. Cannot process request.");
         }
-        // Offer a list of locations:
-        boolean locationNotChosen = true;
-        int locationIndex=0;
-        while(locationNotChosen){
-            for(int i=0;i<locations.size();i++){
-                System.out.println(i+": "+ locations.get(i).getLocationName());
-            }
-            locationIndex = sc.nextInt();
-            sc.nextLine();
-            if(locationIndex >= locations.size()){
-                System.out.println("Not a valid choice.");
-                continue;
-            }
-            locationNotChosen=false;
-        }
-
-        // Get the date for the location schedule.
-        boolean incorrect = true;
-        String date;
-        java.sql.Date dateSQL = null;
-        while (incorrect) {
-            System.out.println("Enter date for schedule in correct format (2019-12-01)");
-            date = sc.nextLine();
-            try {
-                dateSQL = java.sql.Date.valueOf(date);
-            } catch (Exception e) {
-                System.out.println("The format was incorrect, please re-enter.");
-                continue;
-            }
-            incorrect = false;
-        }
-
-        // Obtain the scheduling information (i.e. all the events in that location and their times)
-        List<Event> eventsByLocation = eventManagementService.getEventsByLocation(locations.get(locationIndex),dateSQL);
-        if(eventsByLocation.size()==0){
-            System.out.println("There are no events for this location.");
-        }
-        eventsByLocation.sort(Comparator.comparing(Event::getStartTime));
-        for(Event event: eventsByLocation){
-            System.out.println(event.getTitle()+","+event.getStartTime()+","+event.getEndTime());
-        }
-
     }
 
     private static void createAttendee(Scanner sc) {
@@ -160,13 +114,11 @@ public class Client {
             String role = sc.nextLine();
             attendeeIdentifier = attnMgmSer.createAttendee(type, firstName, lastName, emailAddress, shirtCut,
                     shirtSize.toUpperCase(), dietaryRestrictions, "", "", "", role, "", "");
-            
         } else if (type.toLowerCase().equals("sponsor")) {
             System.out.println("Please enter company name from these options:");
             String companyName = sc.nextLine();
             attendeeIdentifier = attnMgmSer.createAttendee(type, firstName, lastName, emailAddress, shirtCut,
                     shirtSize.toUpperCase(), dietaryRestrictions, "", "", "", "", companyName, "");
-            
         } else {
             System.out.println("Please enter company name");
             String companyName = sc.nextLine();
@@ -178,6 +130,72 @@ public class Client {
 
         System.out.println("Attendee " + attendeeIdentifier + " created successfully!\n");
 
+    }
+    
+    private static void processHotelBooking(Scanner sc) {
+    	HotelBookingManagementService homan = new HotelBookingManagementService();
+    	AttendeeManagementService atman = new AttendeeManagementService();
+    	System.out.println("How many attendees are you booking for? (min 1, max 4)");
+    	int numAttendees = sc.nextInt();
+        sc.nextLine();
+        while ((numAttendees > 4) || (numAttendees <= 0)) {
+        	System.out.println("ERROR: You cannot book for less than 1 or more than 4 people!");
+        	System.out.println("Please re-enter the number of attendees you are booking for: ");
+        	numAttendees = sc.nextInt();
+            sc.nextLine();
+        }
+        List<HotelRoom> availableRooms = homan.findAvailableRooms(numAttendees);
+        System.out.println("roomNumber" + " | " + "spotsOccupied" + " | " + "spotsAvailable");
+        for (HotelRoom room : availableRooms) {
+            System.out.println(room.getRoomNumber() + "       | " + room.getNumOccupied() + "             | " + room.getNumAvailable());
+        }
+        System.out.println("Please enter the room number of the hotel room that you would like to book from the given list.");
+    	String roomNumber = sc.nextLine();
+    	while (homan.findHotelRoomByRoomNumber(Integer.parseInt(roomNumber), availableRooms) == null) {
+    	    System.out.println("ERROR: Room not in the given list!");
+    	    System.out.println("Please re-enter the room number of the hotel room that you would like to book.");
+        	roomNumber = sc.nextLine();
+    	}
+    	System.out.println("Please enter the aIDs of the attendees you are booking for.");
+    	String[] attendeeFirstNames = new String[numAttendees];
+    	String[] attendeeLastNames = new String[numAttendees];
+    	for (int i = 1; i <= numAttendees; i++) {
+    		System.out.println("Attendee " + i + "first name:");
+    		attendeeFirstNames[i-1] = sc.nextLine();
+    		System.out.println("Attendee " + i + "last name:");
+    		attendeeLastNames[i-1] = sc.nextLine();
+    		List<Attendee> attendees = atman.getAttendeeIDsFromName(attendeeFirstNames[i-1], attendeeLastNames[i-1]);
+            while(attendees.size() == 0){
+                System.out.println("Sorry there are no attendees with that name. Please create one using option 1 or re-enter an existing name.");
+                System.out.println("Attendee " + i + "first name:");
+        		attendeeFirstNames[i-1] = sc.nextLine();
+        		System.out.println("Attendee " + i + "last name:");
+        		attendeeLastNames[i-1] = sc.nextLine();
+        		attendees = atman.getAttendeeIDsFromName(attendeeFirstNames[i-1], attendeeLastNames[i-1]);
+            }
+            System.out.println("Please choose an attendee from the following list: ");
+            boolean attendeeNotChosen = true;
+            int attendeeIndex=0;
+            while (attendeeNotChosen) {
+                for (int j = 0; j < attendees.size(); j++) {
+                    Attendee currAttendee = attendees.get(j);
+                    System.out.println(j + ": " + currAttendee.getEmail() + "," + currAttendee.getFn() + "," + currAttendee.getLn());
+                }
+                attendeeIndex = sc.nextInt();
+                sc.nextLine();
+                if (attendeeIndex >= attendees.size()) {
+                    System.out.println("Not a valid choice.");
+                    continue;
+                }
+                attendeeNotChosen = false;
+            }          
+            
+            
+            
+    	}
+    	
+    	// FINISH EDITING
+    	
     }
 
     private static void taskOption(Scanner sc) {
@@ -217,7 +235,7 @@ public class Client {
 
         taskid = tskman.createTask(taskDescription, taskDeadlineDate, taskDeadlineTime);
 
-        System.out.println("Task created Successfully!Would you like to give it to an organizer (yes/no)?");
+        System.out.println("Task created Successfully! Would you like to give it to an organizer (yes/no)?");
         String choice = sc.nextLine();
         if (choice.toLowerCase().equals("yes")) {
             System.out.println("Organizer Firstname?");
@@ -240,7 +258,7 @@ public class Client {
 
     }
 
-    private static void createEventAndSchedule(Scanner sc) {
+    private static void processEventCreationAndScheduling(Scanner sc) {
         EventManagementService eventManagementService = new EventManagementService();
         AttendeeManagementService attendeeManagementService = new AttendeeManagementService();
 
@@ -357,7 +375,8 @@ public class Client {
             }
 
             // Schedule the event.
-            eventManagementService.scheduleEvent(eventId, availableLocations.get(locationIndex), dateSQL, startTimeSQL, endTimeSQL);
+            eventManagementService.scheduleEvent(eventId, availableLocations.get(locationIndex), dateSQL, startTimeSQL,
+                    endTimeSQL);
             System.out.println("The event was successfully scheduled.");
         }
     }
