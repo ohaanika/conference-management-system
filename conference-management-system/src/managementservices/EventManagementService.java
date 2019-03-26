@@ -1,9 +1,12 @@
 package managementservices;
 
+import model.Event;
 import model.Location;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 public class EventManagementService {
@@ -225,5 +228,69 @@ public class EventManagementService {
         }
 
         return availableLocations;
+    }
+
+    public ArrayList<Location> getLocations() {
+        ArrayList<Location> locations = new ArrayList<Location>();
+        Connection connection = ConnectionManager.getConnectionInstance();
+        PreparedStatement basicEvent;
+        String createEventSQL = "SELECT * from Location;";
+
+        // An entry in the table is created for any event of any type due to ISA relationship.
+        try {
+            basicEvent = connection.prepareStatement(createEventSQL);
+            ResultSet rs = basicEvent.executeQuery();
+            while (rs.next()){
+                Location location = new Location();
+                location.setLocationName(rs.getString("lname"));
+                location.setCapacity(rs.getInt("capacity"));
+                locations.add(location);
+            }
+
+        } catch (SQLException e) {
+            return locations;
+        }
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return locations;
+    }
+
+    public List<Event> getEventsByLocation(Location location,Date eventDate) {
+        ArrayList<Event> eventsByLocation = new ArrayList<>();
+        Connection connection = ConnectionManager.getConnectionInstance();
+        PreparedStatement basicEvent;
+        String createEventSQL = "SELECT * FROM Event WHERE locationid='"+location.getLocationName()+"' AND eventdate='"+ eventDate.toString() +"';";
+
+        // An entry in the table is created for any event of any type due to ISA relationship.
+        try {
+            basicEvent = connection.prepareStatement(createEventSQL);
+            ResultSet rs = basicEvent.executeQuery();
+            while (rs.next()){
+                Event event = new Event();
+                event.setLocationid(rs.getString("locationid"));
+                event.setTitle(rs.getString("title"));
+                event.setEventDate(rs.getDate("eventdate"));
+                event.setStartTime(rs.getTime("starttime"));
+                event.setEndTime(rs.getTime("endtime"));
+                event.setSize(rs.getInt("size"));
+                eventsByLocation.add(event);
+            }
+
+        } catch (SQLException e) {
+            return eventsByLocation;
+        }
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return eventsByLocation;
     }
 }

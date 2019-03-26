@@ -7,10 +7,7 @@ import managementservices.TaskManagementService;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * The main GUI that allows users to do the following: Choose from one of the
@@ -29,7 +26,7 @@ public class Client {
             System.out.println("2: Perform hotel room assignments.");
             System.out.println("3: Create an event and schedule it.");
             System.out.println("4: Task operation: Create task/assign task to organizer ");
-            System.out.println("5: Generate the entire conference schedule.");
+            System.out.println("5: Generate the schedule for one room.");
             System.out.println("6: Quit program");
 
             // Obtain user input.
@@ -55,12 +52,63 @@ public class Client {
         } else if (option == 2) {
 
         } else if (option == 3) {
-            processEventCreationAndScheduling(sc);
+            createEventAndSchedule(sc);
         } else if (option == 4) {
             taskOption(sc);
         } else if (option == 5) {
-
+            generateScheduleForLocation(sc);
         }
+    }
+
+    private static void generateScheduleForLocation(Scanner sc) {
+        EventManagementService eventManagementService = new EventManagementService();
+        System.out.println("Please select one of the following locations to view the schedule:");
+        ArrayList<Location> locations = eventManagementService.getLocations();
+        if(locations.size()==0){
+            System.out.println("There are no locations in the system. Cannot process request.");
+        }
+        // Offer a list of locations:
+        boolean locationNotChosen = true;
+        int locationIndex=0;
+        while(locationNotChosen){
+            for(int i=0;i<locations.size();i++){
+                System.out.println(i+": "+ locations.get(i).getLocationName());
+            }
+            locationIndex = sc.nextInt();
+            sc.nextLine();
+            if(locationIndex >= locations.size()){
+                System.out.println("Not a valid choice.");
+                continue;
+            }
+            locationNotChosen=false;
+        }
+
+        // Get the date for the location schedule.
+        boolean incorrect = true;
+        String date;
+        java.sql.Date dateSQL = null;
+        while (incorrect) {
+            System.out.println("Enter date for schedule in correct format (2019-12-01)");
+            date = sc.nextLine();
+            try {
+                dateSQL = java.sql.Date.valueOf(date);
+            } catch (Exception e) {
+                System.out.println("The format was incorrect, please re-enter.");
+                continue;
+            }
+            incorrect = false;
+        }
+
+        // Obtain the scheduling information (i.e. all the events in that location and their times)
+        List<Event> eventsByLocation = eventManagementService.getEventsByLocation(locations.get(locationIndex),dateSQL);
+        if(eventsByLocation.size()==0){
+            System.out.println("There are no events for this location.");
+        }
+        eventsByLocation.sort(Comparator.comparing(Event::getStartTime));
+        for(Event event: eventsByLocation){
+            System.out.println(event.getTitle()+","+event.getStartTime()+","+event.getEndTime());
+        }
+
     }
 
     private static void createAttendee(Scanner sc) {
@@ -192,7 +240,7 @@ public class Client {
 
     }
 
-    private static void processEventCreationAndScheduling(Scanner sc) {
+    private static void createEventAndSchedule(Scanner sc) {
         EventManagementService eventManagementService = new EventManagementService();
         AttendeeManagementService attendeeManagementService = new AttendeeManagementService();
 
@@ -309,8 +357,7 @@ public class Client {
             }
 
             // Schedule the event.
-            eventManagementService.scheduleEvent(eventId, availableLocations.get(locationIndex), dateSQL, startTimeSQL,
-                    endTimeSQL);
+            eventManagementService.scheduleEvent(eventId, availableLocations.get(locationIndex), dateSQL, startTimeSQL, endTimeSQL);
             System.out.println("The event was successfully scheduled.");
         }
     }
