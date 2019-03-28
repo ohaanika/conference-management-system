@@ -1,4 +1,7 @@
 /bin/
+*.class
 .classpath
 .project
 .idea
+/bin1/
+/.recommenders/
